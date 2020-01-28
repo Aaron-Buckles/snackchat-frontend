@@ -1,17 +1,20 @@
 const config = require("config");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const express = require("express");
 
 const app = express();
 
-// Routes
-app.use("/api/reviews", require("./routes/reviews"));
-
 // Middleware
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(helmet());
+
+// Routes
+app.use("/docs", require("./routes/docs"));
+app.use("/api/reviews", require("./routes/reviews"));
 
 // Debugging
 const startupDebug = require("debug")("snackchat:startup");
