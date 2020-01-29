@@ -7,17 +7,24 @@ const express = require("express");
 
 const app = express();
 
+// Debugging
+const startupDebug = require("debug")("snackchat:startup");
+
 // Middleware
+app.use("/uploads", express.static("uploads"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(helmet());
 
+// Morgan
+if (app.get("env") === "development") {
+  app.use(morgan("tiny"));
+  startupDebug("Morgan enabled...");
+}
+
 // Routes
 app.use("/docs", require("./routes/docs"));
 app.use("/api/reviews", require("./routes/reviews"));
-
-// Debugging
-const startupDebug = require("debug")("snackchat:startup");
 
 // Startup
 startupDebug(`Starting ${config.get("name")}...`);
@@ -46,12 +53,6 @@ async function connectToDatabase() {
 }
 
 connectToDatabase();
-
-// Morgan
-if (app.get("env") === "development") {
-  app.use(morgan("tiny"));
-  startupDebug("Morgan enabled...");
-}
 
 // Port Listening
 const port = process.env.PORT || 3000;

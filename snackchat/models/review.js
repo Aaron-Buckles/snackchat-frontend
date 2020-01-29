@@ -21,6 +21,7 @@ const Review = mongoose.model(
       min: 0,
       max: 5
     },
+    reviewImage: { type: String, required: true },
     likes: { type: Number, default: 0 }
   })
 );
