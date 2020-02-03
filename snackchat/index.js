@@ -24,6 +24,7 @@ if (app.get("env") === "development") {
 
 // Routes
 app.use("/docs", require("./routes/docs"));
+app.use("/api/users", require("./routes/users"));
 app.use("/api/reviews", require("./routes/reviews"));
 
 // Startup

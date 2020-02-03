@@ -3,11 +3,11 @@ const express = require("express");
 const router = express.Router();
 
 function sendDoc(res, doc) {
-  res.sendFile(path.join(__dirname, `../docs/${doc}.html`));
+  res.sendFile(path.join(__dirname, `../docs/docs-${doc}.html`));
 }
 
 // Index
-router.get("/", (req, res) => sendDoc(res, "docs-index"));
+router.get("/", (req, res) => sendDoc(res, "index"));
 
 router.get("/reviews", (req, res) => sendDoc(res, "reviews"));
 

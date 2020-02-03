@@ -31,7 +31,6 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", upload.single("reviewImage"), (req, res) => {
-  console.log(req.file);
   createReview(req, res);
 });
 
@@ -45,14 +44,11 @@ async function createReview(req, res) {
 
   try {
     await review.save();
-    res.status(201).json({
-      message: "Created review successfully",
-      createdReview: review
+    res.status(201).send({
+      message: "Created review successfully"
     });
   } catch (err) {
-    res.status(500).json({
-      error: err
-    });
+    res.status(500).send({ err });
   }
 }
 
