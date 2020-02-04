@@ -1,5 +1,5 @@
 {
-  "name": "snackchat",
+  "name": "snackchat-backend",
   "version": "1.0.0",
   "description": "A next generation search system for CS125",
   "main": "index.js",

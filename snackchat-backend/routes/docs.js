@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 function sendDoc(res, doc) {
-  res.sendFile(path.join(__dirname, `../docs/docs-${doc}.html`));
+  res.sendFile(path.join(__dirname, `../docs/${doc}-doc.html`));
 }
 
 // Index

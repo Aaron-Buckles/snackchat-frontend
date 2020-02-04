@@ -18,6 +18,7 @@ const Review = mongoose.model(
     },
     starRating: {
       type: Number,
+      required: true,
       min: 0,
       max: 5
     },
@@ -26,4 +27,25 @@ const Review = mongoose.model(
   })
 );
 
+function validateReview(review) {
+  const schema = Joi.object({
+    title: Joi.string()
+      .min(5)
+      .max(50)
+      .required(),
+    description: Joi.string()
+      .min(5)
+      .max(500)
+      .required(),
+    starRating: Joi.number()
+      .min(0)
+      .max(5)
+      .required(),
+    likes: Joi.number()
+  });
+
+  return schema.validate(review);
+}
+
 module.exports.Review = Review;
+module.exports.validateReview = validateReview;

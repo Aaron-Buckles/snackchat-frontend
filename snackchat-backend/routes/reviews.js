@@ -2,6 +2,7 @@ const crypto = require("crypto");
 const path = require("path");
 const express = require("express");
 const router = express.Router();
+const ReviewController = require("../controllers/reviews-controller");
 
 // Multer
 const multer = require("multer");
@@ -23,33 +24,10 @@ const fileFilter = (req, file, cb) => {
 };
 const upload = multer({ storage, fileFilter });
 
-const { Review } = require("../models/review");
-
-// Routes
-router.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
-router.post("/", upload.single("reviewImage"), (req, res) => {
-  createReview(req, res);
-});
-
-async function createReview(req, res) {
-  const review = new Review({
-    title: req.body.title,
-    description: req.body.description,
-    starRating: req.body.starRating,
-    reviewImage: req.file.path
-  });
-
-  try {
-    await review.save();
-    res.status(201).send({
-      message: "Created review successfully"
-    });
-  } catch (err) {
-    res.status(500).send({ err });
-  }
-}
+router.get("/", ReviewController.getReviews);
+router.get("/:id", ReviewController.getReviewById);
+router.post("/", upload.single("reviewImage"), ReviewController.createReview);
+router.put("/:id", upload.single("reviewImage"), ReviewController.updateReview);
+router.delete("/:id", ReviewController.deleteReview);
 
 module.exports = router;
