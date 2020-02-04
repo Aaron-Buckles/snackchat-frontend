@@ -1,0 +1,35 @@
+{
+  "name": "snackchat",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "main": "src/index.js",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bootstrap": "4.4.1",
+    "dummyjs": "1.1.7",
+    "holderjs": "2.9.6",
+    "react": "16.12.0",
+    "react-bootstrap": "1.0.0-beta.16",
+    "react-dom": "16.12.0",
+    "react-image": "2.2.2",
+    "react-masonry-css": "1.0.14",
+    "react-router-dom": "5.1.2",
+    "react-scripts": "^3.3.1"
+  },
+  "devDependencies": {
+    "typescript": "3.3.3"
+  },
+  "scripts": {
+    "start": "set PORT=8000 && react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
