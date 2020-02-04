@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-function SubmitPost(props) {
+function SubmitReview(props) {
   const [post, setPost] = useState({
     title: "",
     description: "",
-    image: "",
-    tags: ["Vegan"]
+    reviewImage: ""
   });
 
   function submit(event) {
@@ -80,4 +79,4 @@ function SubmitPost(props) {
   );
 }
 
-export default SubmitPost;
+export default SubmitReview;

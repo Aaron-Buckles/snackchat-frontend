@@ -2,12 +2,10 @@ const { Review, validateReview } = require("../models/review");
 
 getReviews = async (req, res) => {
   try {
-    await Review.find({}, (err, reviews) => {
-      if (err) return res.status(400).send({ err });
-      if (reviews.length == 0)
-        return res.status(404).send({ err: "No Reviews found" });
-      return res.status(200).send({ reviews });
-    });
+    const reviews = await Review.find({}).populate("tags");
+    if (reviews.length === 0)
+      return res.status(404).send({ err: "No Reviews found" });
+    return res.status(200).send({ reviews });
   } catch (err) {
     return res.status(500).send({ err });
   }
@@ -15,11 +13,10 @@ getReviews = async (req, res) => {
 
 getReviewById = async (req, res) => {
   try {
-    await Review.findById(req.params.id, (err, review) => {
-      if (err) return res.status(400).send({ err });
-      if (!review) return res.status(404).send({ err: "Review not found" });
-      return res.status(200).send({ review });
-    });
+    const review = await Review.findById(req.params.id).populate("tags");
+    console.log(review);
+    if (!review) return res.status(404).send({ err: "Review not found" });
+    return res.status(200).send({ review });
   } catch (err) {
     return res.status(500).send({ err });
   }
@@ -33,7 +30,8 @@ createReview = async (req, res) => {
     title: req.body.title,
     description: req.body.description,
     starRating: req.body.starRating,
-    reviewImage: req.file.path
+    reviewImage: req.file.path,
+    tags: req.body.tags
   });
 
   try {

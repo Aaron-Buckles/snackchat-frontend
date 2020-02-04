@@ -1,18 +1,17 @@
 import React from "react";
-import api from "../../api"
+import reviewService from "../../services/reviewService";
 
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Navigation from "../Navigation";
 
-import SubmitPost from "./SubmitPost"
+import SubmitReview from "./SubmitReview";
 
 function SubmitPage(props) {
-
   async function handleAddPost(newPost) {
-    console.log(newPost)
-    await api.insertReview(newPost)
+    console.log(newPost);
+    await reviewService.postReview(newPost);
     // setPosts(prevPosts => [...prevPosts, newPost]);
-    props.history.push("/")
+    props.history.push("/");
   }
 
   return (
@@ -22,9 +21,9 @@ function SubmitPage(props) {
         <h1 className="header">This is the submit page</h1>
       </Jumbotron>
 
-      <SubmitPost onAdd={handleAddPost} />
+      <SubmitReview onAdd={handleAddPost} />
     </>
-  )
+  );
 }
 
 export default SubmitPage;

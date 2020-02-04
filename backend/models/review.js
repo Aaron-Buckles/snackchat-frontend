@@ -23,6 +23,7 @@ const Review = mongoose.model(
       max: 5
     },
     reviewImage: { type: String, required: true },
+    tags: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tag" }],
     likes: { type: Number, default: 0 }
   })
 );
@@ -41,6 +42,7 @@ function validateReview(review) {
       .min(0)
       .max(5)
       .required(),
+    tags: Joi.array(),
     likes: Joi.number()
   });
 

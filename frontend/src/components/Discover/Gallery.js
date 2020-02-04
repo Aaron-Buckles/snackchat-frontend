@@ -5,26 +5,12 @@ import Thumbnail from "./Thumbnail";
 function Gallery(props) {
   const thumbnails = [];
 
-  props.posts.forEach(post => {
-    if (props.filterTags.length == 0) {
-      thumbnails.push(
-        <Thumbnail
-          title={post.title}
-          description={post.description}
-          image={post.image}
-          key={post._id}
-        />
-      );
+  props.reviews.forEach(review => {
+    if (props.filterTags.length === 0) {
+      thumbnails.push(<Thumbnail key={review._id} review={review} />);
     } else {
-      if (post.tags.some(element => props.filterTags.includes(element))) {
-        thumbnails.push(
-          <Thumbnail
-            title={post.title}
-            description={post.description}
-            image={post.image}
-            key={post._id}
-          />
-        );
+      if (review.tags.some(element => props.filterTags.includes(element))) {
+        thumbnails.push(<Thumbnail key={review._id} review={review} />);
       }
     }
   });

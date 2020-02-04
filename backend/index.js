@@ -2,6 +2,7 @@ const config = require("config");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const express = require("express");
 
@@ -12,6 +13,7 @@ const startupDebug = require("debug")("snackchat:startup");
 
 // Middleware
 app.use("/uploads", express.static("uploads"));
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(helmet());
@@ -26,6 +28,7 @@ if (app.get("env") === "development") {
 app.use("/docs", require("./routes/docs"));
 app.use("/api/users", require("./routes/users"));
 app.use("/api/reviews", require("./routes/reviews"));
+app.use("/api/tags", require("./routes/tags"));
 
 // Startup
 startupDebug(`Starting ${config.get("name")}...`);
