@@ -49,7 +49,9 @@ async function connectToDatabase() {
     });
     startupDebug(`Connected to ${db} w/ username=${username}...`);
   } catch (err) {
-    startupDebug(`Failed to connect to ${db} w/ username=${username}...`);
+    startupDebug(
+      `Failed to connect to ${db} w/ username=${username}...\n${err}`
+    );
   }
 }
 
