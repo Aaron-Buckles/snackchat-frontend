@@ -1,31 +1,33 @@
 const { Review, validateReview } = require("../models/review");
 
 getReviews = async (req, res) => {
-  // TODO: This is where we got to do the "NEXT GEN SEARCH"
-  await Review.find({}, (err, reviews) => {
-    if (err) {
-      return res.status(400).json({ success: false, err });
-    }
-    if (!reviews.length) {
-      return res.status(404).json({ success: false, err: "Review not found" });
-    }
-    return res.status(200).json({ success: true, data: reviews });
-  }).catch(err => console.log(err));
+  try {
+    await Review.find({}, (err, reviews) => {
+      if (err) return res.status(400).send({ err });
+      if (reviews.length == 0)
+        return res.status(404).send({ err: "No Reviews found" });
+      return res.status(200).send({ reviews });
+    });
+  } catch (err) {
+    return res.status(500).send({ err });
+  }
 };
 
 getReviewById = async (req, res) => {
-  await Review.findOne({ _id: req.params.id }, (err, review) => {
-    if (err) {
-      return res.status(400).json({ success: false, err });
-    }
-
-    return res.status(200).json({ success: true, data: review });
-  }).catch(err => console.log(err));
+  try {
+    await Review.findById(req.params.id, (err, review) => {
+      if (err) return res.status(400).send({ err });
+      if (!review) return res.status(404).send({ err: "Review not found" });
+      return res.status(200).send({ review });
+    });
+  } catch (err) {
+    return res.status(500).send({ err });
+  }
 };
 
 createReview = async (req, res) => {
   const { error } = validateReview(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).send({ err: error.details[0].message });
 
   const review = new Review({
     title: req.body.title,
@@ -36,19 +38,18 @@ createReview = async (req, res) => {
 
   try {
     await review.save();
-    res.status(201).send({
-      success: true,
-      id: review._id,
+    return res.status(201).send({
+      review,
       message: "Review successfully created!"
     });
   } catch (err) {
-    res.status(500).send({ err });
+    return res.status(500).send({ err });
   }
 };
 
 updateReview = async (req, res) => {
   const { error } = validateReview(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).send({ err: error.details[0].message });
 
   try {
     const review = await Review.findByIdAndUpdate(req.params.id, {
@@ -58,12 +59,10 @@ updateReview = async (req, res) => {
       reviewImage: req.file.path
     });
 
-    if (!review)
-      return res.status(404).send({ success: false, err: "Review not found" });
+    if (!review) return res.status(404).send({ err: "Review not found" });
 
-    res.status(200).send({
-      success: true,
-      id: review._id,
+    return res.status(200).send({
+      review,
       message: "Review successfully updated!"
     });
   } catch (err) {
@@ -75,12 +74,10 @@ deleteReview = async (req, res) => {
   try {
     const review = await Review.findByIdAndRemove(req.params.id);
 
-    if (!review)
-      res.status(404).send({ success: false, err: "Review not found" });
+    if (!review) return res.status(404).send({ err: "Review not found" });
 
-    res.status(200).send({
-      success: true,
-      id: review._id,
+    return res.status(200).send({
+      review,
       message: "Review successfully deleted!"
     });
   } catch (err) {
