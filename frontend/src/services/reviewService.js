@@ -11,22 +11,22 @@ async function getAllReviews() {
 }
 
 async function getReviewById(id) {
-  const response = await api.get(`/review/${id}`);
+  const response = await api.get(`/reviews/${id}`);
   return response.data.review;
 }
 
 async function postReview(payload) {
-  const response = await api.post("/review", payload);
+  const response = await api.post("/reviews", payload);
   return response.data;
 }
 
 async function updateReviewById(id, payload) {
-  const response = await api.put(`/review/${id}`, payload);
+  const response = await api.put(`/reviews/${id}`, payload);
   return response.data;
 }
 
 async function deleteReview(id) {
-  const response = await api.delete(`/review/${id}`);
+  const response = await api.delete(`/reviews/${id}`);
   return response.data;
 }
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import reviewService from "../../services/reviewService";
+import tagService from "../../services/tagService";
 
 import Jumbotron from "react-bootstrap/Jumbotron";
 
@@ -9,11 +10,19 @@ import Navigation from "../Navigation";
 
 function DiscoverPage() {
   const [reviews, setReviews] = useState([]);
+  const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       setReviews(await reviewService.getAllReviews());
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setTags(await tagService.getAllTags());
     };
     fetchData();
   }, []);
@@ -32,7 +41,7 @@ function DiscoverPage() {
 
       <hr />
 
-      <FoodTags onTagSelect={handleTagSelect} />
+      <FoodTags onTagSelect={handleTagSelect} tags={tags} />
       <Gallery filterTags={selectedTags} reviews={reviews} />
     </>
   );

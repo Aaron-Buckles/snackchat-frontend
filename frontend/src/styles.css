@@ -18,3 +18,9 @@
   /* change div to reference your elements you put in <Masonry> */
   margin-bottom: 30px;
 }
+
+.absolute-top-left {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+}

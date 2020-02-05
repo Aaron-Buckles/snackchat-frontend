@@ -2,14 +2,14 @@ import React from "react";
 import Masonry from "react-masonry-css";
 import Thumbnail from "./Thumbnail";
 
-function Gallery(props) {
+function Gallery({ filterTags, reviews }) {
   const thumbnails = [];
 
-  props.reviews.forEach(review => {
-    if (props.filterTags.length === 0) {
+  reviews.forEach(review => {
+    if (filterTags.length === 0) {
       thumbnails.push(<Thumbnail key={review._id} review={review} />);
     } else {
-      if (review.tags.some(element => props.filterTags.includes(element))) {
+      if (review.tags.some(tag => filterTags.includes(tag.name))) {
         thumbnails.push(<Thumbnail key={review._id} review={review} />);
       }
     }
