@@ -10,22 +10,25 @@ function Thumbnail({ review }) {
     <Card style={{ width: "18rem" }}>
       <div>
         <Card.Img variant="top" src={`${backendURL}/${review.reviewImage}`} />
-        {review.tags.map(tag => (
-          <Badge
-            key={tag._id}
-            pill
-            variant="light"
-            className="absolute-top-left"
-          >
-            {tag.name}
-          </Badge>
-        ))}
+        <span className="absolute-top-left">
+          {" "}
+          {review.tags.map(tag => (
+            <Badge key={tag._id} variant="light" className="m-1">
+              {tag.name}
+            </Badge>
+          ))}
+        </span>
       </div>
       <Card.Body>
         <Card.Title>{review.title}</Card.Title>
-        <Card.Text>{review.description}</Card.Text>
-        <Button variant="primary">View more</Button>
+        <blockquote>
+          <Card.Text>{review.description}</Card.Text>
+          <p className="blockquote-footer">[User's Name]</p>
+        </blockquote>
       </Card.Body>
+      <Card.Footer>
+        <Button variant="primary">View more</Button>
+      </Card.Footer>
     </Card>
   );
 }

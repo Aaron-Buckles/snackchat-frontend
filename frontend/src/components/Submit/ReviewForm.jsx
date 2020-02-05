@@ -2,43 +2,26 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Input from "../common/Input";
-import reviewService from "../../services/reviewService";
+import FoodTags from "../common/FoodTags";
 
-function ReviewForm({ onReviewSubmitted }) {
-  // const [review, setReview] = useState({
-  //   title: "",
-  //   description: "",
-  //   reviewImage: ""
-  // });
-
-  // const handleSubmit = event => {
-  //   event.preventDefault();
-  //   setReview({ reviewImage: fileInput.current.files[0] });
-  //   onAdd(review);
-  // };
-
-  // const handleChange = event => {
-  //   const { name, value } = event.target;
-
-  //   setReview(prevReview => {
-  //     return {
-  //       ...prevReview,
-  //       [name]: value
-  //     };
-  //   });
-  // };
-
+function ReviewForm({ onReviewSubmitted, tags }) {
   const [review, setReview] = useState({
     title: "",
     description: "",
     starRating: ""
   });
+  const [selectedTags, setSelectedTags] = useState([]);
   const [reviewImage, setReviewImage] = useState("");
   const [filename, setFilename] = useState("Choose file...");
 
   const onChange = e => {
     const { name, value } = e.target;
     setReview({ ...review, [name]: value }); //SDfasfa
+  };
+
+  const onTagSelect = (value, e) => {
+    e.preventDefault();
+    setSelectedTags(value);
   };
 
   const onFileChange = e => {
@@ -49,25 +32,11 @@ function ReviewForm({ onReviewSubmitted }) {
 
   const onSubmit = async e => {
     e.preventDefault();
-    onReviewSubmitted(review, reviewImage);
-
-    // const formData = new FormData();
-    // console.log(reviewImage);
-    // formData.append("reviewImage", reviewImage);
-    // formData.append("title", "test2");
-    // formData.append("description", "test description");
-    // formData.append("starRating", 3);
-
-    // try {
-    //   const res = await reviewService.postReview(formData);
-    //   history.push("/");
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    onReviewSubmitted(review, reviewImage, selectedTags);
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <Form className="w-50 mx-auto mb-4" onSubmit={onSubmit}>
       <Input
         type="text"
         name="title"
@@ -98,7 +67,11 @@ function ReviewForm({ onReviewSubmitted }) {
         onChange={onChange}
         required
       />
-      <div className="custom-file mb-4">
+
+      <Form.Label>Tags</Form.Label>
+      <FoodTags onTagSelect={onTagSelect} tags={tags} />
+
+      <div className="custom-file my-4">
         <input
           type="file"
           className="custom-file-input"
@@ -110,10 +83,10 @@ function ReviewForm({ onReviewSubmitted }) {
         </label>
       </div>
 
-      <Button type="submit" variant="primary">
+      <Button type="submit" variant="primary" className="btn-block">
         Post
       </Button>
-    </form>
+    </Form>
   );
 }
 

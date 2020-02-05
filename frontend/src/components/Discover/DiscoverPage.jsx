@@ -5,7 +5,7 @@ import tagService from "../../services/tagService";
 import Jumbotron from "react-bootstrap/Jumbotron";
 
 import Gallery from "./Gallery";
-import FoodTags from "./FoodTags";
+import FoodTags from "../common/FoodTags";
 import Navigation from "../Navigation";
 
 function DiscoverPage() {
@@ -28,6 +28,7 @@ function DiscoverPage() {
   }, []);
 
   const handleTagSelect = (value, event) => {
+    console.log(value);
     setSelectedTags(value);
     event.preventDefault();
   };
@@ -42,7 +43,7 @@ function DiscoverPage() {
       <hr />
 
       <FoodTags onTagSelect={handleTagSelect} tags={tags} />
-      <Gallery filterTags={selectedTags} reviews={reviews} />
+      <Gallery selectedTags={selectedTags} reviews={reviews} />
     </>
   );
 }
