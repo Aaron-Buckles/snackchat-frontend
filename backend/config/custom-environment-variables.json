@@ -1,4 +1,5 @@
 {
-  "dbUsername": "DB_USERNAME",
-  "dbPassword": "DB_PASSWORD"
+  "DB_USERNAME": "DB_USERNAME",
+  "DB_PASSWORD": "DB_PASSWORD",
+  "JWT_KEY": "JWT_KEY"
 }

@@ -3,6 +3,7 @@ const path = require("path");
 const express = require("express");
 const router = express.Router();
 const ReviewController = require("../controllers/reviews-controller");
+const checkAuth = require("../middleware/check-auth");
 
 // Multer
 const multer = require("multer");
@@ -26,8 +27,18 @@ const upload = multer({ storage, fileFilter });
 
 router.get("/", ReviewController.getReviews);
 router.get("/:id", ReviewController.getReviewById);
-router.post("/", upload.single("reviewImage"), ReviewController.createReview);
-router.put("/:id", upload.single("reviewImage"), ReviewController.updateReview);
-router.delete("/:id", ReviewController.deleteReview);
+router.post(
+  "/",
+  checkAuth,
+  upload.single("reviewImage"),
+  ReviewController.createReview
+);
+router.put(
+  "/:id",
+  checkAuth,
+  upload.single("reviewImage"),
+  ReviewController.updateReview
+);
+router.delete("/:id", checkAuth, ReviewController.deleteReview);
 
 module.exports = router;

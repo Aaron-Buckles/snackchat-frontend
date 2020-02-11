@@ -1,33 +1,72 @@
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const config = require("config");
 const { User, validateUser } = require("../models/user");
 
-getAllUserNames = async (req, res) => {
+getUser = async (req, res) => {
   try {
-    const userNames = await User.find({}).select("name");
-    if (userNames.length === 0)
-      return res.status(404).send({ err: "No Users found" });
-    return res.status(200).send({ userNames });
+    const user = await User.findOne({ _id: req.params.userId });
+    res.status(200).send({ user });
   } catch (err) {
-    return res.status(500).send({ err });
+    res.status(200).send({ err });
   }
 };
 
-createUser = async (passwordHash, req, res) => {
-  const { error } = validateUser(req.body);
-  if (error) return res.status(400).send({ err: error.details[0].message });
+createUser = (req, res) => {
+  const saveUser = async (hash, req, res) => {
+    const { error } = validateUser(req.body);
+    if (error) return res.status(400).send({ err: error.details[0].message });
 
-  const user = new User({
-    name: req.body.name,
-    email: req.body.email,
-    password: passwordHash
+    const user = new User({
+      name: req.body.name,
+      email: req.body.email,
+      password: hash
+    });
+
+    try {
+      await user.save();
+      res.status(201).send({
+        message: "Created user successfully"
+      });
+    } catch (err) {
+      res.status(500).send({ err });
+    }
+  };
+
+  bcrypt.hash(req.body.password, 15, (err, hash) => {
+    if (err) {
+      return res.status(500).send({ err });
+    } else {
+      saveUser(hash, req, res);
+    }
   });
+};
 
+loginUser = async (req, res) => {
   try {
-    await user.save();
-    res.status(201).send({
-      message: "Created user successfully"
+    const user = await User.findOne({ email: req.body.email });
+    console.log(user);
+    if (!user) {
+      return res.status(401).send({ err: "Login failed" });
+    }
+    bcrypt.compare(req.body.password, user.password, (err, result) => {
+      if (err || !result) {
+        return res.status(401).send({ err: "Login failed" });
+      }
+      const token = jwt.sign(
+        {
+          email: user.email,
+          userId: user._id
+        },
+        config.get("JWT_KEY"),
+        {
+          expiresIn: "1h"
+        }
+      );
+      return res.status(200).send({ token, message: "Login successful" });
     });
   } catch (err) {
-    res.status(500).send({ err });
+    return res.status(500).send({ err });
   }
 };
 
@@ -43,7 +82,8 @@ deleteUser = async (req, res) => {
 };
 
 module.exports = {
-  getAllUserNames,
+  getUser,
   createUser,
+  loginUser,
   deleteUser
 };

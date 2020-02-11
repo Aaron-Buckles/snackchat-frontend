@@ -14,7 +14,7 @@ function FoodTags({ selectedTags, onTagSelect, tags }) {
         {tags.map(tag => (
           <ToggleButton
             key={tag._id}
-            className="mx-1 my-1"
+            className="m-1"
             variant="outline-dark"
             value={tag}
           >

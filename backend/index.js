@@ -37,13 +37,13 @@ startupDebug(`Starting ${config.get("name")}...`);
 function parseDatabaseURL() {
   return config
     .get("db")
-    .replace("<username>", config.get("dbUsername"))
-    .replace("<password>", config.get("dbPassword"));
+    .replace("<username>", config.get("DB_USERNAME"))
+    .replace("<password>", config.get("DB_PASSWORD"));
 }
 
 async function connectToDatabase() {
   const db = config.get("db");
-  const username = config.get("dbUsername");
+  const username = config.get("DB_USERNAME");
 
   try {
     await mongoose.connect(parseDatabaseURL(), {
