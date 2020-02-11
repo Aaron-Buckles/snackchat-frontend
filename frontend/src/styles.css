@@ -28,3 +28,9 @@
   top: 8px;
   left: 8px;
 }
+
+.horizontal-scroll {
+  overflow-x: auto;
+  white-space: nowrap;
+  float: none;
+}

@@ -6,7 +6,7 @@ function FoodTags({ selectedTags, onTagSelect, tags }) {
   return (
     <div className="mb-3">
       <ToggleButtonGroup
-        className="d-flex justify-content-around"
+        className="d-flex horizontal-scroll"
         type="checkbox"
         value={selectedTags}
         onChange={onTagSelect}
@@ -14,7 +14,7 @@ function FoodTags({ selectedTags, onTagSelect, tags }) {
         {tags.map(tag => (
           <ToggleButton
             key={tag._id}
-            className="mx-1"
+            className="mx-1 my-1"
             variant="outline-success"
             value={tag}
           >
