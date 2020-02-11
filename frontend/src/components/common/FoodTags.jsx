@@ -15,7 +15,7 @@ function FoodTags({ selectedTags, onTagSelect, tags }) {
           <ToggleButton
             key={tag._id}
             className="mx-1 my-1"
-            variant="outline-success"
+            variant="outline-dark"
             value={tag}
           >
             {tag.name}
