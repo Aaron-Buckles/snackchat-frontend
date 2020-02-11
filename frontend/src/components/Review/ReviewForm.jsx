@@ -16,7 +16,7 @@ function ReviewForm({ onReviewSubmitted, tags }) {
 
   const onChange = e => {
     const { name, value } = e.target;
-    setReview({ ...review, [name]: value }); //SDfasfa
+    setReview({ ...review, [name]: value });
   };
 
   const onTagSelect = (value, e) => {
@@ -36,7 +36,7 @@ function ReviewForm({ onReviewSubmitted, tags }) {
   };
 
   return (
-    <Form className="w-50 mx-auto mb-4" onSubmit={onSubmit}>
+    <Form onSubmit={onSubmit}>
       <Input
         type="text"
         name="title"
@@ -74,6 +74,7 @@ function ReviewForm({ onReviewSubmitted, tags }) {
       <div className="custom-file my-4">
         <input
           type="file"
+          accept="image/*"
           className="custom-file-input"
           id="reviewImageFile"
           onChange={onFileChange}

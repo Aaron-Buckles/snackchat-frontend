@@ -6,7 +6,6 @@ import Jumbotron from "react-bootstrap/Jumbotron";
 
 import Gallery from "./Gallery";
 import FoodTags from "../common/FoodTags";
-import Navigation from "../Navigation";
 
 function DiscoverPage() {
   const [reviews, setReviews] = useState([]);
@@ -35,7 +34,6 @@ function DiscoverPage() {
 
   return (
     <>
-      <Navigation />
       <Jumbotron>
         <h1 className="header">Snackchat!</h1>
       </Jumbotron>

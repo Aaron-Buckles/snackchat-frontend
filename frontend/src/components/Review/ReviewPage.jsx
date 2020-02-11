@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import reviewService from "../../services/reviewService";
-import tagService from "./../../services/tagService";
+import tagService from "../../services/tagService";
 import Jumbotron from "react-bootstrap/Jumbotron";
-import Navigation from "../Navigation";
 import ReviewForm from "./ReviewForm";
 
 function SubmitPage({ history }) {
@@ -37,7 +36,6 @@ function SubmitPage({ history }) {
 
   return (
     <>
-      <Navigation />
       <Jumbotron>
         <h1 className="header">Submit a Review!</h1>
       </Jumbotron>

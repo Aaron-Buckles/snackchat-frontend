@@ -10,5 +10,7 @@ function sendDoc(res, doc) {
 router.get("/", (req, res) => sendDoc(res, "index"));
 
 router.get("/reviews", (req, res) => sendDoc(res, "reviews"));
+router.get("/users", (req, res) => sendDoc(res, "users"));
+router.get("/tags", (req, res) => sendDoc(res, "tags"));
 
 module.exports = router;
