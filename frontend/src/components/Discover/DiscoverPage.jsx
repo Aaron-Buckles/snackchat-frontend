@@ -34,12 +34,8 @@ function DiscoverPage() {
 
   return (
     <>
-      <Jumbotron>
-        <h1 className="header">Snackchat!</h1>
-      </Jumbotron>
-
+      <h1 className="brand-text text-center">Discover</h1>
       <hr />
-
       <FoodTags onTagSelect={handleTagSelect} tags={tags} />
       <Gallery selectedTags={selectedTags} reviews={reviews} />
     </>

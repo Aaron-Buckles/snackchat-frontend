@@ -19,6 +19,10 @@
   margin-bottom: 30px;
 }
 
+.brand-text {
+  font-family: "Sriracha", cursive;
+}
+
 .absolute-top-left {
   position: absolute;
   top: 8px;

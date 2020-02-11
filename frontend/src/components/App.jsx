@@ -17,10 +17,10 @@ export default function App() {
         <Navigation />
         <Container className="p-5">
           <Switch>
-            <Route path="/" exact component={DiscoverPage} />
             <Route path="/review" component={ReviewPage} />
             <Route path="/business" component={BusinessPage} />
             <Route path="/signup" component={SignupPage} />
+            <Route path="/" exact component={DiscoverPage} />
           </Switch>
         </Container>
       </Router>

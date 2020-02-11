@@ -15,10 +15,8 @@ function SignupPage({ history }) {
 
   return (
     <>
-      <Jumbotron>
-        <h1 className="header">Signup!</h1>
-      </Jumbotron>
-
+      <h1 className="brand-text text-center">Signup</h1>
+      <hr />
       <SignupForm onUserSubmitted={handleUserSubmitted} />
     </>
   );

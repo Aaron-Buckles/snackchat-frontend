@@ -36,10 +36,8 @@ function SubmitPage({ history }) {
 
   return (
     <>
-      <Jumbotron>
-        <h1 className="header">Submit a Review!</h1>
-      </Jumbotron>
-
+      <h1 className="brand-text text-center">Submit a Review</h1>
+      <hr />
       <ReviewForm onReviewSubmitted={handleReviewSubmitted} tags={tags} />
     </>
   );
