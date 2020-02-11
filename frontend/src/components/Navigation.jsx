@@ -6,7 +6,7 @@ import { Link, NavLink } from "react-router-dom";
 function Navigation() {
   return (
     <Navbar bg="dark" expand="lg" variant="dark">
-      <Navbar.Brand className="brand-text">
+      <Navbar.Brand as={Link} to="/" className="brand-text">
         <img
           src={process.env.PUBLIC_URL + "/logo.svg"}
           width="30"
@@ -19,16 +19,16 @@ function Navigation() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
-          <Nav.Link as={NavLink} to="/">
+          <Nav.Link as={NavLink} exact to="/">
             Home
           </Nav.Link>
-          <Nav.Link as={NavLink} to="/review">
+          <Nav.Link as={NavLink} exact to="/review">
             Review
           </Nav.Link>
-          <Nav.Link as={NavLink} to="/business">
+          <Nav.Link as={NavLink} exact to="/business">
             Business
           </Nav.Link>
-          <Nav.Link as={NavLink} to="/signup">
+          <Nav.Link as={NavLink} exact to="/signup">
             Signup
           </Nav.Link>
         </Nav>
