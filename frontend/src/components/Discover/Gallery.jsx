@@ -1,5 +1,6 @@
 import React from "react";
 import Masonry from "react-masonry-css";
+import Container from "react-bootstrap/Container";
 import Thumbnail from "./Thumbnail";
 
 function Gallery({ selectedTags, reviews }) {
@@ -19,15 +20,7 @@ function Gallery({ selectedTags, reviews }) {
     }
   });
 
-  return (
-    <Masonry
-      breakpointCols={2}
-      className="w-75 mx-auto my-masonry-grid"
-      columnClassName="my-masonry-grid_column"
-    >
-      {thumbnails}
-    </Masonry>
-  );
+  return <Container className="grid-container">{thumbnails}</Container>;
 }
 
 export default Gallery;

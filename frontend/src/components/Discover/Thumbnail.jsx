@@ -7,11 +7,10 @@ import { backendURL } from "../../config.json";
 
 function Thumbnail({ review }) {
   return (
-    <Card style={{ width: "18rem" }}>
+    <Card>
       <div>
         <Card.Img variant="top" src={`${backendURL}/${review.reviewImage}`} />
         <span className="absolute-top-left">
-          {" "}
           {review.tags.map(tag => (
             <Badge key={tag._id} variant="light" className="m-1">
               {tag.name}
@@ -20,15 +19,12 @@ function Thumbnail({ review }) {
         </span>
       </div>
       <Card.Body>
-        <Card.Title>{review.title}</Card.Title>
+        <Card.Title className="brand-text">{review.title}</Card.Title>
         <blockquote>
           <Card.Text>{review.description}</Card.Text>
           <p className="blockquote-footer">{review.author.name}</p>
         </blockquote>
       </Card.Body>
-      <Card.Footer>
-        <Button variant="primary">View more</Button>
-      </Card.Footer>
     </Card>
   );
 }
