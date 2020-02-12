@@ -24,6 +24,7 @@ const Review = mongoose.model(
     },
     reviewImage: { type: String, required: true },
     tags: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tag" }],
+    author: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     likes: { type: Number, default: 0 }
   })
 );

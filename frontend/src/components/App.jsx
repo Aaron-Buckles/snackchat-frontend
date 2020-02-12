@@ -41,7 +41,10 @@ export default function App() {
         <Navigation user={user} onLogout={handleLogout} />
         <Container className="p-5">
           <Switch>
-            <Route path="/review" component={ReviewPage} />
+            <Route
+              path="/review"
+              render={props => <ReviewPage {...props} user={user} />}
+            />
             <Route path="/business" component={BusinessPage} />
             <Route path="/signup" component={SignupPage} />
             <Route

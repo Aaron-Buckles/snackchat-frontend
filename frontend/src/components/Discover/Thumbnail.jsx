@@ -23,7 +23,7 @@ function Thumbnail({ review }) {
         <Card.Title>{review.title}</Card.Title>
         <blockquote>
           <Card.Text>{review.description}</Card.Text>
-          <p className="blockquote-footer">[User's Name]</p>
+          <p className="blockquote-footer">{review.author.name}</p>
         </blockquote>
       </Card.Body>
       <Card.Footer>

@@ -4,7 +4,7 @@ import tagService from "../../services/tagService";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import ReviewForm from "./ReviewForm";
 
-function SubmitPage({ history }) {
+function SubmitPage({ history, user }) {
   const [tags, setTags] = useState([]);
 
   useEffect(() => {

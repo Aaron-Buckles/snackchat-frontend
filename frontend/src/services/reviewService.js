@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import { backendURL } from "../config.json";
 
 const api = axios.create({
@@ -16,7 +17,9 @@ async function getReviewById(id) {
 }
 
 async function postReview(payload) {
-  const response = await api.post("/reviews", payload);
+  const response = await api.post("/reviews", payload, {
+    headers: { Authorization: Cookies.get("token") }
+  });
   return response.data;
 }
 
