@@ -10,8 +10,14 @@ async function postUser(payload) {
   return response.data;
 }
 
+async function loginUser(payload) {
+  const response = await api.post("/users/login", payload);
+  return response.data;
+}
+
 const userService = {
-  postUser
+  postUser,
+  loginUser
 };
 
 export default userService;

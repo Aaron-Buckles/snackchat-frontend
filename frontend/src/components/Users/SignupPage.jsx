@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Jumbotron from "react-bootstrap/Jumbotron";
 import SignupForm from "./SignupForm";
 import userService from "./../../services/userService";
 
