@@ -2,7 +2,9 @@ const { Review, validateReview } = require("../models/review");
 
 getReviews = async (req, res) => {
   try {
-    const reviews = await Review.find({}).populate("tags");
+    const reviews = await Review.find({})
+      .populate("tags")
+      .populate("author", "name");
     if (reviews.length === 0)
       return res.status(404).send({ err: "No Reviews found" });
     return res.status(200).send({ reviews });
@@ -13,7 +15,9 @@ getReviews = async (req, res) => {
 
 getReviewById = async (req, res) => {
   try {
-    const review = await Review.findById(req.params.id).populate("tags");
+    const review = await (
+      await Review.findById(req.params.id).populate("tags")
+    ).populated("author", "name");
     console.log(review);
     if (!review) return res.status(404).send({ err: "Review not found" });
     return res.status(200).send({ review });
@@ -31,7 +35,8 @@ createReview = async (req, res) => {
     description: req.body.description,
     starRating: req.body.starRating,
     reviewImage: req.file.path,
-    tags: req.body.tags
+    tags: req.body.tags,
+    author: req.userData.userId
   });
 
   try {
