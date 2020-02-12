@@ -6,7 +6,7 @@ import { Link, NavLink } from "react-router-dom";
 
 function Navigation({ user, onLogout }) {
   const displayUserOrLogin = () => {
-    if (user.name) {
+    if (user.userId) {
       return (
         <>
           <Nav.Link onClick={onLogout}>Logout</Nav.Link>
@@ -39,12 +39,16 @@ function Navigation({ user, onLogout }) {
           <Nav.Link as={NavLink} exact to="/">
             Home
           </Nav.Link>
-          <Nav.Link as={NavLink} to="/review">
-            Review
-          </Nav.Link>
-          <Nav.Link as={NavLink} to="/business">
-            Business
-          </Nav.Link>
+          {user.userId && (
+            <Nav.Link as={NavLink} to="/review">
+              Review
+            </Nav.Link>
+          )}
+          {user.userId && (
+            <Nav.Link as={NavLink} to="/business">
+              Business
+            </Nav.Link>
+          )}
           {displayUserOrLogin()}
         </Nav>
       </Navbar.Collapse>
