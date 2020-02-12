@@ -1,15 +1,16 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
 import "holderjs";
-import { backendURL } from "../../config.json";
 
 function Thumbnail({ review }) {
   return (
     <Card>
       <div>
-        <Card.Img variant="top" src={`${backendURL}/${review.reviewImage}`} />
+        <Card.Img
+          variant="top"
+          src={`${process.env.REACT_APP_API_URL}/${review.reviewImage}`}
+        />
         <span className="absolute-top-left">
           {review.tags.map(tag => (
             <Badge key={tag._id} variant="light" className="m-1">

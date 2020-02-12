@@ -1,8 +1,7 @@
 import axios from "axios";
-import { backendURL } from "../config.json";
 
 const api = axios.create({
-  baseURL: backendURL + "/api"
+  baseURL: process.env.REACT_APP_API_URL + "/api"
 });
 
 async function getAllTags() {

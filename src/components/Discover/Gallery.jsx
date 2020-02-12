@@ -6,20 +6,23 @@ import Thumbnail from "./Thumbnail";
 function Gallery({ selectedTags, reviews }) {
   const thumbnails = [];
 
-  reviews.forEach(review => {
-    if (selectedTags.length === 0) {
-      thumbnails.push(<Thumbnail key={review._id} review={review} />);
-    } else {
-      if (
-        review.tags.some(tag =>
-          selectedTags.some(selectedTag => selectedTag.name === tag.name)
-        )
-      ) {
+  if (reviews) {
+    reviews.forEach(review => {
+      if (selectedTags.length === 0) {
         thumbnails.push(<Thumbnail key={review._id} review={review} />);
+      } else {
+        if (
+          review.tags.some(tag =>
+            selectedTags.some(selectedTag => selectedTag.name === tag.name)
+          )
+        ) {
+          thumbnails.push(<Thumbnail key={review._id} review={review} />);
+        }
       }
-    }
-  });
+    });
+  }
 
+  if (thumbnails.length === 0) return <p>No reviews yet...</p>;
   return <Container className="grid-container">{thumbnails}</Container>;
 }
 
