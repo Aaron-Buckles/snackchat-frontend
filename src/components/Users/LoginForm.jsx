@@ -3,24 +3,24 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Input from "../common/Input";
 
-function LoginForm({ onUserLoggedIn }) {
-  const [user, setUser] = useState({
+function LoginForm(props) {
+  const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: ""
   });
 
   const onChange = e => {
     const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+    setLoginInfo({ ...loginInfo, [name]: value });
   };
 
-  const onSubmit = async e => {
-    e.preventDefault();
-    onUserLoggedIn(user);
-  };
+  // const onSubmit = async e => {
+  //   e.preventDefault();
+  //   onUserLoggedIn(user);
+  // };
 
   return (
-    <Form onSubmit={onSubmit}>
+    <Form onSubmit={(event) => props.handleOnSubmit(event, loginInfo)}>
       <Input
         type="email"
         name="email"

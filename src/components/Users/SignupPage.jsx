@@ -1,22 +1,40 @@
 import React, { useState, useEffect } from "react";
 import SignupForm from "./SignupForm";
-import userService from "./../../services/userService";
+import tagService from "../../services/tagService";
 
-function SignupPage({ history }) {
-  const handleUserSubmitted = async user => {
+import {useAuth} from "../../customHooks/use-auth"
+
+function SignupPage(props) {
+
+  const auth = useAuth()
+
+  const [tags, setTags] = useState([]);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      setTags(await tagService.getAllTags());
+    };
+    fetchData();
+  }, []);
+
+  const handleUserSubmitted = async userInfo => {
     try {
-      const res = await userService.postUser(user);
-      history.push("/");
+      await auth.signup(userInfo);
+      props.history.push({
+        pathname: "/login",
+        state: {from: "/signup"}
+      });
     } catch (err) {
       console.log(err);
     }
   };
 
+
   return (
     <>
-      <h1 className="brand-text text-center">Signup</h1>
+      <h1 className="brand-text text-center">Create an account</h1>
       <hr />
-      <SignupForm onUserSubmitted={handleUserSubmitted} />
+      <SignupForm onUserSubmitted={handleUserSubmitted} tags={tags} />
     </>
   );
 }

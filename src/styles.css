@@ -1,5 +1,5 @@
 .brand-text {
-  font-family: "Sriracha", cursive;
+  font-family: "Rubik", "Sriracha", cursive;
 }
 
 .absolute-top-left {
@@ -14,15 +14,40 @@
   float: none;
 }
 
-.grid-container {
-  display: grid;
-  grid-gap: 20px;
-  grid-template-columns: auto auto;
+form {
+  width: 50%;
+  margin: auto;
 }
 
-@media only screen and (max-width: 900px) {
-  .grid-container {
-    grid-gap: 5px;
-    grid-template-columns: auto;
+.my-masonry-grid {
+  display: -webkit-box; /* Not needed if autoprefixing */
+  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: flex;
+  width: auto;
+}
+.my-masonry-grid_column {
+  background-clip: padding-box;
+}
+
+/* Style your items */
+.my-masonry-grid_column > div {
+  /* change div to reference your elements you put in <Masonry> */
+  margin-bottom: 30px;
+}
+
+.card {
+  width: 22rem;
+}
+
+
+@media (max-width: 360px) {
+  .card {
+    width: 19rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  .my-masonry-grid {
+    margin: 0 5rem;
   }
 }

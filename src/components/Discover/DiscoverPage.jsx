@@ -2,12 +2,10 @@ import React, { useState, useEffect } from "react";
 import reviewService from "../../services/reviewService";
 import tagService from "../../services/tagService";
 
-import Jumbotron from "react-bootstrap/Jumbotron";
-
 import Gallery from "./Gallery";
 import FoodTags from "../common/FoodTags";
 
-function DiscoverPage() {
+function DiscoverPage(props) {
   const [reviews, setReviews] = useState([]);
   const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
@@ -27,7 +25,6 @@ function DiscoverPage() {
   }, []);
 
   const handleTagSelect = (value, event) => {
-    console.log(value);
     setSelectedTags(value);
     event.preventDefault();
   };
@@ -37,7 +34,7 @@ function DiscoverPage() {
       <h1 className="brand-text text-center">Discover</h1>
       <hr />
       <FoodTags onTagSelect={handleTagSelect} tags={tags} />
-      <Gallery selectedTags={selectedTags} reviews={reviews} />
+      <Gallery {...props} selectedTags={selectedTags} reviews={reviews}/>
     </>
   );
 }

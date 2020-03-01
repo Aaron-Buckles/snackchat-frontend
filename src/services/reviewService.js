@@ -32,12 +32,28 @@ async function deleteReview(id) {
   return response.data;
 }
 
+async function likeReview(reviewId) {
+  const response = await api.post(`/reviews/${reviewId}/like`, null, {
+    headers: { Authorization: Cookies.get("token") }
+  });
+  return response.data;
+}
+
+async function unlikeReview(reviewId) {
+  const response = await api.post(`/reviews/${reviewId}/unlike`, null, {
+    headers: { Authorization: Cookies.get("token") }
+  });
+  return response.data;
+}
+
 const reviewService = {
   getAllReviews,
   getReviewById,
   postReview,
   updateReviewById,
-  deleteReview
+  deleteReview,
+  likeReview,
+  unlikeReview
 };
 
 export default reviewService;

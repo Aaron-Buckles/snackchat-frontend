@@ -1,10 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Input from "../common/Input";
 import FoodTags from "../common/FoodTags";
 
-function ReviewForm({ onReviewSubmitted, tags }) {
+import tagService from "../../services/tagService";
+import reviewService from "../../services/reviewService";
+
+
+function ReviewForm(props) {
+
+  const [tags, setTags] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setTags(await tagService.getAllTags());
+    };
+    fetchData();
+  }, []);
+
   const [review, setReview] = useState({
     title: "",
     description: "",
@@ -30,17 +44,35 @@ function ReviewForm({ onReviewSubmitted, tags }) {
     setFilename(file.name);
   };
 
-  const onSubmit = async e => {
+  const handleReviewSubmitted = async (e) => {
     e.preventDefault();
-    onReviewSubmitted(review, reviewImage, selectedTags);
+    const formData = new FormData();
+    formData.append("title", review.title);
+    formData.append("description", review.description);
+    formData.append("starRating", review.starRating);
+    formData.append("reviewImage", reviewImage);
+
+    const tagIds = selectedTags.map(tag => tag._id);
+    for (let i = 0; i < tagIds.length; i++) {
+      formData.append(`tags[${i}]`, tagIds[i]);
+    }
+
+    try {
+      await reviewService.postReview(formData);
+      props.history.push("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
-    <Form onSubmit={onSubmit}>
+    <Form onSubmit={handleReviewSubmitted}>
       <Input
         type="text"
         name="title"
         label="Title"
+        minLength="5"
+        maxLength="50"
         placeholder="Enter a title"
         onChange={onChange}
         required
@@ -52,6 +84,8 @@ function ReviewForm({ onReviewSubmitted, tags }) {
         type="text"
         name="description"
         label="Description"
+        minLength="5"
+        maxLength="500"
         placeholder="Enter a description"
         onChange={onChange}
         required

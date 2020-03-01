@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Cookies from "js-cookie";
-import jsonwebtoken from "jsonwebtoken";
 
 import Container from "react-bootstrap/Container";
 
@@ -12,49 +10,51 @@ import ReviewPage from "./Review/ReviewPage";
 import SignupPage from "./Users/SignupPage";
 import LoginPage from "./Users/LoginPage";
 
+
+import { ProvideAuth } from "../customHooks/use-auth"
+import { usePosition } from "../customHooks/use-position"
+
 export default function App() {
-  const [user, setUser] = useState({});
 
-  const checkLoginStatus = () => {
-    if (Cookies.get("token")) {
-      setUser(jsonwebtoken.decode(Cookies.get("token")));
-    } else {
-      setUser({});
-    }
-  };
 
-  useEffect(checkLoginStatus, []);
+  // function success(position) {
+  //   const latitude = position.coords.latitude;
+  //   const longitude = position.coords.longitude;
 
-  const handleLogin = res => {
-    Cookies.set("token", res.token);
-    checkLoginStatus();
-  };
+  //   console.log(latitude, longitude)
+  // }
 
-  const handleLogout = () => {
-    Cookies.remove("token");
-    setUser({});
-  };
+  // function error() {
+  //   console.log('Unable to retrieve your location');
+  // }
+
+
+  // useEffect(() => {
+  //   if (!navigator.geolocation) {
+  //     console.log('Geolocation is not supported by your browser');
+  //   } else {
+  //     console.log('Locating…');
+  //     console.log(navigator.geolocation.getCurrentPosition(success, error));
+  //   }
+  // })
+
 
   return (
     <>
-      <Router>
-        <Navigation user={user} onLogout={handleLogout} />
-        <Container className="p-5">
-          <Switch>
-            <Route
-              path="/review"
-              render={props => <ReviewPage {...props} user={user} />}
-            />
-            <Route path="/business" component={BusinessPage} />
-            <Route path="/signup" component={SignupPage} />
-            <Route
-              path="/login"
-              render={props => <LoginPage {...props} onLogin={handleLogin} />}
-            />
-            <Route path="/" exact component={DiscoverPage} />
-          </Switch>
-        </Container>
-      </Router>
+      <ProvideAuth>
+        <Router>
+          <Navigation/>
+          <Container className="mt-5 px-0">
+            <Switch>
+              <Route path="/review" component={ReviewPage} />
+              <Route path="/business" component={BusinessPage} />
+              <Route path="/signup" component={SignupPage} />
+              <Route path="/login" component={LoginPage} />
+              <Route path="/" exact component={DiscoverPage} />
+            </Switch>
+          </Container>
+        </Router>
+      </ProvideAuth>
     </>
   );
 }

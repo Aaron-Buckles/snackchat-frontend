@@ -2,22 +2,32 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Input from "../common/Input";
+import FoodTags from "../common/FoodTags";
 
-function SignupForm({ onUserSubmitted }) {
-  const [user, setUser] = useState({
+function SignupForm(props) {
+  const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
-    password: ""
+    password: "",
+    preferences: []
   });
+
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  const onTagSelect = (value, e) => {
+    e.preventDefault();
+    setSelectedTags(value);
+  };
 
   const onChange = e => {
     const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+    setUserInfo({ ...userInfo, [name]: value });
   };
 
   const onSubmit = async e => {
     e.preventDefault();
-    onUserSubmitted(user);
+    userInfo.preferences = selectedTags;
+    props.onUserSubmitted(userInfo);
   };
 
   return (
@@ -48,8 +58,11 @@ function SignupForm({ onUserSubmitted }) {
         required
       />
 
+      <Form.Label>Choose your preferences</Form.Label>
+      <FoodTags onTagSelect={onTagSelect} tags={props.tags} />
+
       <Button type="submit" variant="primary" className="btn-block">
-        Signup
+        Register
       </Button>
     </Form>
   );

@@ -1,12 +1,40 @@
-import React from "react";
-import Jumbotron from "react-bootstrap/Jumbotron";
+import React, {useEffect} from "react";
+import businessService from "../../services/businessService";
 
-function BusinessPage() {
+import BusinessGallery from "./BusinessGallery"
+
+import { useState } from "react";
+
+import { usePosition } from "../../customHooks/use-position"
+
+function BusinessPage(props) {
+
+  const { latitude, longitude, error } = usePosition();
+
+  const [businesses, setBusinesses] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+
+      if (latitude && longitude && !error) {
+        setBusinesses(await businessService.getBusinessWithinRadius(longitude, latitude));
+      } else {
+        setBusinesses(await businessService.getBusinesses())
+      }
+
+    };
+    fetchData();
+  }, [latitude, longitude]);
+
   return (
     <>
       <h1 className="brand-text text-center">Business</h1>
       <hr />
-      <p>No content yet...</p>
+
+      {/* <BusinessFilters></BusinessFilters> */}
+
+
+      <BusinessGallery businesses={businesses}></BusinessGallery>
     </>
   );
 }
