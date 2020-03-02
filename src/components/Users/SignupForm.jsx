@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Input from "../common/Input";
+import { ButtonWithLoading, Input } from "../common/inputElements";
+import { toast } from "react-toastify";
 import FoodTags from "../common/FoodTags";
+import { useAuth } from "../../customHooks/use-auth";
+import { useSubmit } from "../../customHooks/use-submit";
+import { useRouter } from "../../customHooks/use-router";
 
-function SignupForm(props) {
+export default function SignupForm({ tags }) {
   const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
@@ -13,6 +16,8 @@ function SignupForm(props) {
   });
 
   const [selectedTags, setSelectedTags] = useState([]);
+  const auth = useAuth();
+  const { push } = useRouter();
 
   const onTagSelect = (value, e) => {
     e.preventDefault();
@@ -24,14 +29,19 @@ function SignupForm(props) {
     setUserInfo({ ...userInfo, [name]: value });
   };
 
-  const onSubmit = async e => {
+  const onSignup = useSubmit(async e => {
     e.preventDefault();
     userInfo.preferences = selectedTags;
-    props.onUserSubmitted(userInfo);
-  };
+    try {
+      await auth.signup(userInfo);
+      push({ pathname: "/login", state: { from: "/signup" } });
+    } catch (err) {
+      toast.error(err);
+    }
+  });
 
   return (
-    <Form onSubmit={onSubmit}>
+    <Form onSubmit={onSignup.exec}>
       <Input
         type="text"
         name="name"
@@ -59,13 +69,16 @@ function SignupForm(props) {
       />
 
       <Form.Label>Choose your preferences</Form.Label>
-      <FoodTags onTagSelect={onTagSelect} tags={props.tags} />
+      <FoodTags onTagSelect={onTagSelect} tags={tags} />
 
-      <Button type="submit" variant="primary" className="btn-block">
-        Register
-      </Button>
+      <ButtonWithLoading
+        name="login"
+        text="Signup"
+        type="submit"
+        loading={onSignup.loading}
+        variant="primary"
+        className="btn-block"
+      />
     </Form>
   );
 }
-
-export default SignupForm;

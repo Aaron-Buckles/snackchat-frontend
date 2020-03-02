@@ -1,28 +1,26 @@
 import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Input from "../common/Input";
+import { ButtonWithLoading, Input, Select } from "../common/inputElements";
 import FoodTags from "../common/FoodTags";
+import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
-import tagService from "../../services/tagService";
 import reviewService from "../../services/reviewService";
+import { useBusinesses } from "../../customHooks/use-businesses";
+import { useSubmit } from "../../customHooks/use-submit";
+import { useTags } from "../../customHooks/use-tags";
+import { useRouter } from "../../customHooks/use-router";
 
-
-function ReviewForm(props) {
-
-  const [tags, setTags] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setTags(await tagService.getAllTags());
-    };
-    fetchData();
-  }, []);
+function ReviewForm() {
+  const businesses = useBusinesses();
+  const tags = useTags();
+  const { push } = useRouter();
 
   const [review, setReview] = useState({
     title: "",
     description: "",
-    starRating: ""
+    starRating: "",
+    businessId: Cookies.get("review_business_id") || ""
   });
   const [selectedTags, setSelectedTags] = useState([]);
   const [reviewImage, setReviewImage] = useState("");
@@ -44,12 +42,13 @@ function ReviewForm(props) {
     setFilename(file.name);
   };
 
-  const handleReviewSubmitted = async (e) => {
+  const onReviewSubmitted = useSubmit(async e => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("title", review.title);
     formData.append("description", review.description);
     formData.append("starRating", review.starRating);
+    formData.append("businessId", review.businessId);
     formData.append("reviewImage", reviewImage);
 
     const tagIds = selectedTags.map(tag => tag._id);
@@ -59,14 +58,14 @@ function ReviewForm(props) {
 
     try {
       await reviewService.postReview(formData);
-      props.history.push("/");
+      push("/");
     } catch (err) {
-      console.log(err);
+      toast.error(err.response.data.err);
     }
-  };
+  });
 
   return (
-    <Form onSubmit={handleReviewSubmitted}>
+    <Form onSubmit={onReviewSubmitted.exec}>
       <Input
         type="text"
         name="title"
@@ -118,9 +117,22 @@ function ReviewForm(props) {
         </label>
       </div>
 
-      <Button type="submit" variant="primary" className="btn-block">
-        Post
-      </Button>
+      <Select
+        name="businessId"
+        value={review.businessId}
+        selectOptions={businesses}
+        label="Business"
+        onChange={onChange}
+      />
+
+      <ButtonWithLoading
+        name="submitReview"
+        text="Post"
+        type="submit"
+        loading={onReviewSubmitted.loading}
+        variant="primary"
+        className="btn-block"
+      />
     </Form>
   );
 }

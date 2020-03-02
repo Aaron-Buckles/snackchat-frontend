@@ -1,32 +1,35 @@
 import React from "react";
 import Masonry from "react-masonry-css";
 import Thumbnail from "./Thumbnail";
+import { Loader } from "../common/Loader";
 
 function Gallery(props) {
   const thumbnails = [];
 
   const breakpointColumnsObj = {
     default: 2,
-    1000: 1 
+    1000: 1
   };
 
-  
   props.reviews.forEach(review => {
     if (props.selectedTags.length === 0) {
-      thumbnails.push(<Thumbnail {...props} key={review._id} review={review} />);
+      thumbnails.push(
+        <Thumbnail {...props} key={review._id} review={review} />
+      );
     } else {
       if (
         review.tags.some(tag =>
           props.selectedTags.some(selectedTag => selectedTag.name === tag.name)
         )
       ) {
-        thumbnails.push(<Thumbnail {...props} key={review._id} review={review} />);
+        thumbnails.push(
+          <Thumbnail {...props} key={review._id} review={review} />
+        );
       }
     }
   });
 
-  if (thumbnails.length === 0) return <p>No reviews yet...</p>;
-
+  if (thumbnails.length === 0) return <Loader />;
 
   return (
     <Masonry

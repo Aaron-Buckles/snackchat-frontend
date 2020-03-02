@@ -1,5 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Container from "react-bootstrap/Container";
 
@@ -10,13 +12,9 @@ import ReviewPage from "./Review/ReviewPage";
 import SignupPage from "./Users/SignupPage";
 import LoginPage from "./Users/LoginPage";
 
-
-import { ProvideAuth } from "../customHooks/use-auth"
-import { usePosition } from "../customHooks/use-position"
+import { ProvideAuth } from "../customHooks/use-auth";
 
 export default function App() {
-
-
   // function success(position) {
   //   const latitude = position.coords.latitude;
   //   const longitude = position.coords.longitude;
@@ -28,7 +26,6 @@ export default function App() {
   //   console.log('Unable to retrieve your location');
   // }
 
-
   // useEffect(() => {
   //   if (!navigator.geolocation) {
   //     console.log('Geolocation is not supported by your browser');
@@ -38,23 +35,22 @@ export default function App() {
   //   }
   // })
 
+  toast.configure();
 
   return (
-    <>
-      <ProvideAuth>
-        <Router>
-          <Navigation/>
-          <Container className="mt-5 px-0">
-            <Switch>
-              <Route path="/review" component={ReviewPage} />
-              <Route path="/business" component={BusinessPage} />
-              <Route path="/signup" component={SignupPage} />
-              <Route path="/login" component={LoginPage} />
-              <Route path="/" exact component={DiscoverPage} />
-            </Switch>
-          </Container>
-        </Router>
-      </ProvideAuth>
-    </>
+    <ProvideAuth>
+      <Router>
+        <Navigation />
+        <Container className="mt-5 px-0">
+          <Switch>
+            <Route path="/review" component={ReviewPage} />
+            <Route path="/business" component={BusinessPage} />
+            <Route path="/signup" component={SignupPage} />
+            <Route path="/login" component={LoginPage} />
+            <Route path="/" exact component={DiscoverPage} />
+          </Switch>
+        </Container>
+      </Router>
+    </ProvideAuth>
   );
 }
