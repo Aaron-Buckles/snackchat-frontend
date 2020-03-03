@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import Container from "react-bootstrap/Container";
 
@@ -13,6 +12,17 @@ import SignupPage from "./Users/SignupPage";
 import LoginPage from "./Users/LoginPage";
 
 import { ProvideAuth } from "../customHooks/use-auth";
+
+import ReactDOM from "react-dom";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { far } from "@fortawesome/free-regular-svg-icons";
+import {
+  faThumbsUp,
+  faThumbsDown,
+  faHeart
+} from "@fortawesome/free-solid-svg-icons";
+
+library.add(far, faThumbsUp, faThumbsDown, faHeart);
 
 export default function App() {
   // function success(position) {

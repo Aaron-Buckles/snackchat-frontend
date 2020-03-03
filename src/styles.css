@@ -39,7 +39,6 @@ form {
   width: 22rem;
 }
 
-
 @media (max-width: 360px) {
   .card {
     width: 19rem;

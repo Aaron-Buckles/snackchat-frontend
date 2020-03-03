@@ -1,29 +1,9 @@
 import React, { useEffect } from "react";
-import businessService from "../../services/businessService";
-
 import BusinessGallery from "./BusinessGallery";
-
-import { useState } from "react";
-
-import { usePosition } from "../../customHooks/use-position";
+import { useBusinesses } from "../../customHooks/use-businesses";
 
 function BusinessPage(props) {
-  const { latitude, longitude, error } = usePosition();
-
-  const [businesses, setBusinesses] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (latitude && longitude && !error) {
-        setBusinesses(
-          await businessService.getBusinessWithinRadius(longitude, latitude)
-        );
-      } else {
-        setBusinesses(await businessService.getBusinesses());
-      }
-    };
-    fetchData();
-  }, [latitude, longitude]);
+  const businesses = useBusinesses();
 
   return (
     <>
@@ -32,7 +12,7 @@ function BusinessPage(props) {
 
       {/* <BusinessFilters></BusinessFilters> */}
 
-      <BusinessGallery {...props} businesses={businesses}></BusinessGallery>
+      <BusinessGallery businesses={businesses}></BusinessGallery>
     </>
   );
 }

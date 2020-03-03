@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { ButtonWithLoading, Input, Select } from "../common/inputElements";
+import { StarRating } from "../common/StarRating";
 import FoodTags from "../common/FoodTags";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
-
 import reviewService from "../../services/reviewService";
 import { useBusinesses } from "../../customHooks/use-businesses";
 import { useSubmit } from "../../customHooks/use-submit";
@@ -19,9 +19,9 @@ function ReviewForm() {
   const [review, setReview] = useState({
     title: "",
     description: "",
-    starRating: "",
     businessId: Cookies.get("review_business_id") || ""
   });
+  const [starRating, setStarRating] = useState(0);
   const [selectedTags, setSelectedTags] = useState([]);
   const [reviewImage, setReviewImage] = useState("");
   const [filename, setFilename] = useState("Choose file...");
@@ -29,6 +29,10 @@ function ReviewForm() {
   const onChange = e => {
     const { name, value } = e.target;
     setReview({ ...review, [name]: value });
+  };
+
+  const onStarRatingChange = (newStarRating, name) => {
+    setStarRating(newStarRating);
   };
 
   const onTagSelect = (value, e) => {
@@ -47,7 +51,7 @@ function ReviewForm() {
     const formData = new FormData();
     formData.append("title", review.title);
     formData.append("description", review.description);
-    formData.append("starRating", review.starRating);
+    formData.append("starRating", starRating);
     formData.append("businessId", review.businessId);
     formData.append("reviewImage", reviewImage);
 
@@ -90,15 +94,11 @@ function ReviewForm() {
         required
       />
 
-      <Input
-        type="number"
+      <StarRating
         name="starRating"
         label="Rating"
-        min="0"
-        max="5"
-        placeholder="Rating from 0 to 5"
-        onChange={onChange}
-        required
+        rating={starRating}
+        changeRating={onStarRatingChange}
       />
 
       <Form.Label>Tags</Form.Label>
@@ -128,9 +128,8 @@ function ReviewForm() {
       <ButtonWithLoading
         name="submitReview"
         text="Post"
-        type="submit"
+        type="primary"
         loading={onReviewSubmitted.loading}
-        variant="primary"
         className="btn-block"
       />
     </Form>

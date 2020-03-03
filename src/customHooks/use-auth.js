@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext, createContext } from "react";
 import userService from "../services/userService";
 import Cookies from "js-cookie";
 import jsonwebtoken from "jsonwebtoken";
+import { toast } from "react-toastify";
 
 const authContext = createContext();
 
@@ -42,6 +43,7 @@ function useProvideAuth() {
   const signout = () => {
     Cookies.remove("token");
     setUser(false);
+    toast.success("Successfully logged out");
   };
 
   // Subscribe to user on mount

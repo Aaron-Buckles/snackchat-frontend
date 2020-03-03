@@ -19,8 +19,7 @@ export default function SignupForm({ tags }) {
   const auth = useAuth();
   const { push } = useRouter();
 
-  const onTagSelect = (value, e) => {
-    e.preventDefault();
+  const onTagSelect = value => {
     setSelectedTags(value);
   };
 
@@ -34,6 +33,7 @@ export default function SignupForm({ tags }) {
     userInfo.preferences = selectedTags;
     try {
       await auth.signup(userInfo);
+      toast.success("Account successfully created!");
       push({ pathname: "/login", state: { from: "/signup" } });
     } catch (err) {
       toast.error(err);
@@ -74,9 +74,8 @@ export default function SignupForm({ tags }) {
       <ButtonWithLoading
         name="login"
         text="Signup"
-        type="submit"
+        type="primary"
         loading={onSignup.loading}
-        variant="primary"
         className="btn-block"
       />
     </Form>

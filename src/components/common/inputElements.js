@@ -1,13 +1,15 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { AwesomeButton } from "react-awesome-button";
+
 import { Loader } from "./Loader";
 
 export function ButtonWithLoading({ name, text, loading, ...options }) {
   return (
-    <Button name={name} {...options} disabled={loading}>
+    <AwesomeButton type="primary" name={name} {...options} disabled={loading}>
       {(loading && <Loader light />) || text}
-    </Button>
+    </AwesomeButton>
   );
 }
 

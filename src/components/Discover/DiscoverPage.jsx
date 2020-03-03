@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import reviewService from "../../services/reviewService";
-import tagService from "../../services/tagService";
-
 import Gallery from "./Gallery";
 import FoodTags from "../common/FoodTags";
+import { useTags } from "../../customHooks/use-tags";
 
 function DiscoverPage(props) {
   const [reviews, setReviews] = useState([]);
-  const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
+  const tags = useTags();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,16 +16,8 @@ function DiscoverPage(props) {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setTags(await tagService.getAllTags());
-    };
-    fetchData();
-  }, []);
-
-  const handleTagSelect = (value, event) => {
+  const handleTagSelect = value => {
     setSelectedTags(value);
-    event.preventDefault();
   };
 
   return (
@@ -34,7 +25,7 @@ function DiscoverPage(props) {
       <h1 className="brand-text text-center">Discover</h1>
       <hr />
       <FoodTags onTagSelect={handleTagSelect} tags={tags} />
-      <Gallery {...props} selectedTags={selectedTags} reviews={reviews}/>
+      <Gallery selectedTags={selectedTags} reviews={reviews} />
     </>
   );
 }

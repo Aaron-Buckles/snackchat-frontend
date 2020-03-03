@@ -3,33 +3,29 @@ import Masonry from "react-masonry-css";
 import Thumbnail from "./Thumbnail";
 import { Loader } from "../common/Loader";
 
-function Gallery(props) {
-  const thumbnails = [];
+export default function Gallery({ selectedTags, reviews }) {
+  // const thumbnailsToDisplay = [];
 
   const breakpointColumnsObj = {
     default: 2,
     1000: 1
   };
 
-  props.reviews.forEach(review => {
-    if (props.selectedTags.length === 0) {
-      thumbnails.push(
-        <Thumbnail {...props} key={review._id} review={review} />
-      );
-    } else {
-      if (
-        review.tags.some(tag =>
-          props.selectedTags.some(selectedTag => selectedTag.name === tag.name)
-        )
-      ) {
-        thumbnails.push(
-          <Thumbnail {...props} key={review._id} review={review} />
-        );
-      }
-    }
-  });
+  reviews.forEach(review => console.log(review));
 
-  if (thumbnails.length === 0) return <Loader />;
+  const thumbnailsToDisplay = reviews
+    .filter(
+      review =>
+        selectedTags.length === 0 ||
+        selectedTags.every(selectedTag =>
+          review.tags.some(tag => tag._id === selectedTag._id)
+        )
+    )
+    .map(review => <Thumbnail key={review._id} review={review} />);
+
+  if (thumbnailsToDisplay.length === 0) return <Loader />;
+
+  let x = [<Thumbnail review={reviews[0]} />];
 
   return (
     <Masonry
@@ -37,11 +33,7 @@ function Gallery(props) {
       className="my-masonry-grid"
       columnClassName="my-masonry-grid_column"
     >
-      {thumbnails}
+      {thumbnailsToDisplay}
     </Masonry>
   );
-
-  // return <Container className="grid-container">{thumbnails}</Container>;
 }
-
-export default Gallery;

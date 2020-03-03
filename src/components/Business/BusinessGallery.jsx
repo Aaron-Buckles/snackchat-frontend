@@ -1,19 +1,14 @@
 import React from "react";
-import Masonry from "react-masonry-css";
 import BusinessThumbnail from "./BusinessThumbnail";
+import CardDeck from "react-bootstrap/CardDeck";
+import { Loader } from "../common/Loader";
 
-function BusinessGallery(props) {
-  const businesses = [];
+export default function BusinessGallery({ businesses }) {
+  const businessesToDisplay = businesses.map(business => (
+    <BusinessThumbnail business={business}></BusinessThumbnail>
+  ));
 
-  props.businesses.forEach(business => {
-    businesses.push(
-      <BusinessThumbnail {...props} business={business}></BusinessThumbnail>
-    );
-  });
+  if (businesses.length === 0) return <Loader />;
 
-  if (businesses.length === 0) return <p>No businesses yet...</p>;
-
-  return <div>{businesses}</div>;
+  return <CardDeck>{businessesToDisplay}</CardDeck>;
 }
-
-export default BusinessGallery;

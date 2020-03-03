@@ -25,7 +25,7 @@ export default function LoginForm() {
       await auth.signin(loginInfo);
       push("/");
     } catch (err) {
-      toast.error("Incorrect username or password");
+      toast.error(err.response.data.err);
     }
   });
 
@@ -51,9 +51,8 @@ export default function LoginForm() {
       <ButtonWithLoading
         name="login"
         text="Login"
-        type="submit"
+        type="primary"
         loading={onLogin.loading}
-        variant="primary"
         className="btn-block"
       />
     </Form>
