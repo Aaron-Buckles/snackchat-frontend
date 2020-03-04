@@ -1,9 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import LoginForm from "./LoginForm";
-import { useEffect } from "react";
-import { useRouter } from "../../customHooks/use-router";
-import { toast } from "react-toastify";
 
 export default function LoginPage() {
   return (

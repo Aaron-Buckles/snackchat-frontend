@@ -1,17 +1,23 @@
 import React, { useState } from "react";
+import FoodTags from "../common/FoodTags";
+import Cookies from "js-cookie";
+
+// Services
+import reviewService from "../../services/reviewService";
+
+// Interface
 import Form from "react-bootstrap/Form";
 import { ButtonWithLoading, Input, Select } from "../common/inputElements";
 import { StarRating } from "../common/StarRating";
-import FoodTags from "../common/FoodTags";
-import Cookies from "js-cookie";
 import { toast } from "react-toastify";
-import reviewService from "../../services/reviewService";
+
+// Hooks
 import { useBusinesses } from "../../customHooks/use-businesses";
 import { useSubmit } from "../../customHooks/use-submit";
 import { useTags } from "../../customHooks/use-tags";
 import { useRouter } from "../../customHooks/use-router";
 
-function ReviewForm() {
+export default function ReviewForm() {
   const businesses = useBusinesses();
   const tags = useTags();
   const { push } = useRouter();
@@ -21,7 +27,7 @@ function ReviewForm() {
     description: "",
     businessId: Cookies.get("review_business_id") || ""
   });
-  const [starRating, setStarRating] = useState(0);
+  const [starRating, setStarRating] = useState(1);
   const [selectedTags, setSelectedTags] = useState([]);
   const [reviewImage, setReviewImage] = useState("");
   const [filename, setFilename] = useState("Choose file...");
@@ -135,5 +141,3 @@ function ReviewForm() {
     </Form>
   );
 }
-
-export default ReviewForm;

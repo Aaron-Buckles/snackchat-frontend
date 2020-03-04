@@ -19,6 +19,7 @@ export function StarRating({ name, label, rating, changeRating, ...options }) {
         starSpacing="5px"
         starRatedColor="#1e88e5"
         starHoverColor="#1e88e5"
+        starEmptyColor="#eee"
         {...options}
       />
     </div>

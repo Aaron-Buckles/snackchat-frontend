@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+
+// Interface
 import Form from "react-bootstrap/Form";
 import { toast } from "react-toastify";
 import { ButtonWithLoading, Input } from "../common/inputElements";
+
+// Hooks
 import { useSubmit } from "../../customHooks/use-submit";
 import { useRouter } from "../../customHooks/use-router";
 import { useAuth } from "../../customHooks/use-auth";
@@ -25,7 +29,8 @@ export default function LoginForm() {
       await auth.signin(loginInfo);
       push("/");
     } catch (err) {
-      toast.error(err.response.data.err);
+      if (err.response.data.err) toast.error(err.response.data.err);
+      else toast.error("An error occured, please try again later");
     }
   });
 

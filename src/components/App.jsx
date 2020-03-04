@@ -1,9 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+// Interface
+import Container from "react-bootstrap/Container";
 import { toast } from "react-toastify";
 
-import Container from "react-bootstrap/Container";
-
+// Components
 import Navigation from "./Navigation";
 import DiscoverPage from "./Discover/DiscoverPage";
 import BusinessPage from "./Business/BusinessPage";
@@ -11,18 +13,14 @@ import ReviewPage from "./Review/ReviewPage";
 import SignupPage from "./Users/SignupPage";
 import LoginPage from "./Users/LoginPage";
 
+// Hooks
 import { ProvideAuth } from "../customHooks/use-auth";
 
-import ReactDOM from "react-dom";
+// Font Awesome
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { far } from "@fortawesome/free-regular-svg-icons";
-import {
-  faThumbsUp,
-  faThumbsDown,
-  faHeart
-} from "@fortawesome/free-solid-svg-icons";
-
-library.add(far, faThumbsUp, faThumbsDown, faHeart);
+import { faThumbsUp, faSearch } from "@fortawesome/free-solid-svg-icons";
+library.add(far, faThumbsUp, faSearch);
 
 export default function App() {
   // function success(position) {
@@ -45,6 +43,7 @@ export default function App() {
   //   }
   // })
 
+  // Configure react-toastify
   toast.configure();
 
   return (

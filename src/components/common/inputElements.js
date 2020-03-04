@@ -1,8 +1,8 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
+
+// Interface
 import Form from "react-bootstrap/Form";
 import { AwesomeButton } from "react-awesome-button";
-
 import { Loader } from "./Loader";
 
 export function ButtonWithLoading({ name, text, loading, ...options }) {

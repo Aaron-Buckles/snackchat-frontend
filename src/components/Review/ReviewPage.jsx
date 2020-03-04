@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ReviewForm from "./ReviewForm";
-import { useRequireAuth } from "../../customHooks/use-requireAuth";
+
+// Interface
 import { Loader } from "../common/Loader";
 
-function ReviewPage(props) {
+// Hooks
+import { useRequireAuth } from "../../customHooks/use-requireAuth";
+
+export default function ReviewPage(props) {
   const auth = useRequireAuth();
 
   console.log("Auth", auth);
@@ -20,5 +24,3 @@ function ReviewPage(props) {
     </>
   );
 }
-
-export default ReviewPage;

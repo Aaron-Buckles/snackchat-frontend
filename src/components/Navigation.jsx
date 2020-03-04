@@ -1,15 +1,17 @@
 import React from "react";
+import { Link, NavLink } from "react-router-dom";
+
+// Interface
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import { Link, NavLink } from "react-router-dom";
+
+// Hooks
 import { useAuth } from "../customHooks/use-auth";
 
-function Navigation({ user, onLogout }) {
+export default function Navigation() {
   const auth = useAuth();
 
   const displayUserOrLogin = () => {
-    console.log(auth.user);
-
     if (auth.user) {
       return (
         <>
@@ -33,7 +35,12 @@ function Navigation({ user, onLogout }) {
   };
 
   return (
-    <Navbar bg="dark" expand="lg" variant="dark">
+    <Navbar
+      expand="lg"
+      bg="dark"
+      variant="dark"
+      className="shadow-lg rounded m-2"
+    >
       <Navbar.Brand as={Link} to="/" className="brand-text">
         <img
           src={process.env.PUBLIC_URL + "/logo.svg"}
@@ -66,5 +73,3 @@ function Navigation({ user, onLogout }) {
     </Navbar>
   );
 }
-
-export default Navigation;

@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import SignupForm from "./SignupForm";
-import tagService from "../../services/tagService";
 
-import { useAuth } from "../../customHooks/use-auth";
+// Hooks
 import { useTags } from "../../customHooks/use-tags";
 
-function SignupPage(props) {
+export default function SignupPage() {
   const tags = useTags();
 
   return (
@@ -16,5 +15,3 @@ function SignupPage(props) {
     </>
   );
 }
-
-export default SignupPage;

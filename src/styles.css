@@ -1,5 +1,11 @@
+html {
+  font-family: "Rubik", sans-serif;
+  font-weight: 400;
+}
+
 .brand-text {
-  font-family: "Rubik", "Sriracha", cursive;
+  font-family: "Rubik Mono One", sans-serif;
+  font-weight: 900;
 }
 
 .absolute-top-left {
@@ -15,7 +21,7 @@
 }
 
 form {
-  width: 50%;
+  width: 75%;
   margin: auto;
 }
 
@@ -36,7 +42,7 @@ form {
 }
 
 .card {
-  width: 22rem;
+  width: 25rem;
 }
 
 @media (max-width: 360px) {
@@ -48,5 +54,9 @@ form {
 @media (min-width: 1000px) {
   .my-masonry-grid {
     margin: 0 5rem;
+  }
+
+  form {
+    width: 50%;
   }
 }

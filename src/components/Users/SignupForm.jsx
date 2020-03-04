@@ -1,8 +1,12 @@
 import React, { useState } from "react";
-import Form from "react-bootstrap/Form";
-import { ButtonWithLoading, Input } from "../common/inputElements";
-import { toast } from "react-toastify";
 import FoodTags from "../common/FoodTags";
+
+// Interface
+import Form from "react-bootstrap/Form";
+import { toast } from "react-toastify";
+import { ButtonWithLoading, Input } from "../common/inputElements";
+
+// Hooks
 import { useAuth } from "../../customHooks/use-auth";
 import { useSubmit } from "../../customHooks/use-submit";
 import { useRouter } from "../../customHooks/use-router";

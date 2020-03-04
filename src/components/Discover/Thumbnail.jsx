@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import "holderjs"; // What is this??
+
+// Services
+import reviewService from "../../services/reviewService";
+
+// Interface
 import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
-import Button from "react-bootstrap/Button";
-import { StarRating } from "../common/StarRating";
-import reviewService from "../../services/reviewService";
-import "holderjs";
-import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { StarRating } from "../common/StarRating";
+import { LikeButton } from "../common/LikeButton";
 
+// Hooks
 import { useAuth } from "../../customHooks/use-auth";
 import { useRouter } from "../../customHooks/use-router";
-import { LikeButton } from "../common/LikeButton";
 
 export default function Thumbnail({ key, review }) {
   const auth = useAuth();
@@ -55,7 +58,7 @@ export default function Thumbnail({ key, review }) {
   };
 
   return (
-    <Card className="mx-auto">
+    <Card className="mx-auto shadow-lg">
       <Card.Img
         variant="top"
         src={`${process.env.REACT_APP_API_URL}/${review.reviewImage}`}

@@ -1,5 +1,7 @@
 import React from "react";
 import BusinessThumbnail from "./BusinessThumbnail";
+
+// Interface
 import CardDeck from "react-bootstrap/CardDeck";
 import { Loader } from "../common/Loader";
 

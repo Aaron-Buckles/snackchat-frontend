@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import BusinessGallery from "./BusinessGallery";
+
+// Hooks
 import { useBusinesses } from "../../customHooks/use-businesses";
 
-function BusinessPage(props) {
+export default function BusinessPage() {
   const businesses = useBusinesses();
 
   return (
@@ -16,5 +18,3 @@ function BusinessPage(props) {
     </>
   );
 }
-
-export default BusinessPage;

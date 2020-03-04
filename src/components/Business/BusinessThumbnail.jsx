@@ -1,13 +1,17 @@
 import React from "react";
+import Cookies from "js-cookie";
+
+// Interface
 import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
-import Cookies from "js-cookie";
-import { useRouter } from "../../customHooks/use-router";
-import { useSubmit } from "../../customHooks/use-submit";
 import { ButtonWithLoading } from "../common/inputElements";
 import { StarRating } from "../common/StarRating";
 
-function BusinessThumbnail({ business }) {
+// Hooks
+import { useRouter } from "../../customHooks/use-router";
+import { useSubmit } from "../../customHooks/use-submit";
+
+export default function BusinessThumbnail({ business }) {
   const { push } = useRouter();
 
   const onWriteReview = useSubmit(e => {
@@ -48,5 +52,3 @@ function BusinessThumbnail({ business }) {
     </Card>
   );
 }
-
-export default BusinessThumbnail;

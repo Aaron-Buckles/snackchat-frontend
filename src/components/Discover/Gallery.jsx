@@ -1,17 +1,15 @@
 import React from "react";
+
+// Interface
 import Masonry from "react-masonry-css";
 import Thumbnail from "./Thumbnail";
 import { Loader } from "../common/Loader";
 
 export default function Gallery({ selectedTags, reviews }) {
-  // const thumbnailsToDisplay = [];
-
   const breakpointColumnsObj = {
     default: 2,
     1000: 1
   };
-
-  reviews.forEach(review => console.log(review));
 
   const thumbnailsToDisplay = reviews
     .filter(
@@ -24,8 +22,6 @@ export default function Gallery({ selectedTags, reviews }) {
     .map(review => <Thumbnail key={review._id} review={review} />);
 
   if (thumbnailsToDisplay.length === 0) return <Loader />;
-
-  let x = [<Thumbnail review={reviews[0]} />];
 
   return (
     <Masonry
