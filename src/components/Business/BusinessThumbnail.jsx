@@ -22,7 +22,7 @@ export default function BusinessThumbnail({ business }) {
   });
 
   return (
-    <Card>
+    <Card className="mx-auto shadow-lg">
       <Card.Body>
         <Card.Title>{business.name}</Card.Title>
         <StarRating name="starRating" rating={business.starRating} />

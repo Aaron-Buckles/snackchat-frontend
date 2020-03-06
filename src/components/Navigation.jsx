@@ -42,7 +42,7 @@ export default function Navigation() {
       expand="lg"
       bg="dark"
       variant="dark"
-      className="shadow-lg rounded m-3"
+      className="shadow-lg rounded m-2"
     >
       <Navbar.Brand as={Link} to="/" className="brand-text">
         <img
