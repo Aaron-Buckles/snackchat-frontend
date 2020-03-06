@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 // Interface
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // Hooks
 import { useAuth } from "../customHooks/use-auth";
@@ -15,20 +16,22 @@ export default function Navigation() {
     if (auth.user) {
       return (
         <>
-          <Nav.Link as={NavLink} onClick={auth.signout} to="/login">
-            Logout
+          <Nav.Link disabled>
+            <FontAwesomeIcon icon="user" /> {auth.user.name}
           </Nav.Link>
-          <Nav.Link disabled>Logged in as: {auth.user.name}</Nav.Link>
+          <Nav.Link as={NavLink} onClick={auth.signout} to="/login">
+            <FontAwesomeIcon icon="sign-out-alt" /> Logout
+          </Nav.Link>
         </>
       );
     }
     return (
       <>
         <Nav.Link as={NavLink} to="/login">
-          Login
+          <FontAwesomeIcon icon="sign-in-alt" /> Login
         </Nav.Link>
         <Nav.Link as={NavLink} to="/signup">
-          Signup
+          <FontAwesomeIcon icon="user-plus" /> Signup
         </Nav.Link>
       </>
     );
@@ -39,7 +42,7 @@ export default function Navigation() {
       expand="lg"
       bg="dark"
       variant="dark"
-      className="shadow-lg rounded m-2"
+      className="shadow-lg rounded m-3"
     >
       <Navbar.Brand as={Link} to="/" className="brand-text">
         <img
@@ -55,16 +58,16 @@ export default function Navigation() {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav>
           <Nav.Link as={NavLink} exact to="/">
-            Discover
+            <FontAwesomeIcon icon="search" /> Discover
           </Nav.Link>
           {auth.user && (
             <Nav.Link as={NavLink} to="/review">
-              Review
+              <FontAwesomeIcon icon="clipboard" /> Review
             </Nav.Link>
           )}
           {auth.user && (
             <Nav.Link as={NavLink} to="/business">
-              Business
+              <FontAwesomeIcon icon="building" /> Business
             </Nav.Link>
           )}
           {displayUserOrLogin()}

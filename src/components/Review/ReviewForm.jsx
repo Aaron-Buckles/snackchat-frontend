@@ -42,7 +42,6 @@ export default function ReviewForm() {
   };
 
   const onTagSelect = (value, e) => {
-    e.preventDefault();
     setSelectedTags(value);
   };
 

@@ -19,8 +19,28 @@ import { ProvideAuth } from "../customHooks/use-auth";
 // Font Awesome
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { far } from "@fortawesome/free-regular-svg-icons";
-import { faThumbsUp, faSearch } from "@fortawesome/free-solid-svg-icons";
-library.add(far, faThumbsUp, faSearch);
+import {
+  faThumbsUp,
+  faSearch,
+  faBuilding,
+  faClipboard,
+  faSignInAlt,
+  faSignOutAlt,
+  faUser,
+  faUserPlus
+} from "@fortawesome/free-solid-svg-icons";
+
+library.add(
+  far,
+  faThumbsUp,
+  faSearch,
+  faClipboard,
+  faBuilding,
+  faSignInAlt,
+  faSignOutAlt,
+  faUser,
+  faUserPlus
+);
 
 export default function App() {
   // function success(position) {
