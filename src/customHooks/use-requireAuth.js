@@ -10,7 +10,7 @@ export const useRequireAuth = (redirectUrl = "/login") => {
     if (auth.user === false) {
       router.push(redirectUrl);
     }
-  }, [auth, router]);
+  }, [auth, router, redirectUrl]);
 
   return auth;
 };

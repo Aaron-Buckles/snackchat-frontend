@@ -15,7 +15,7 @@ import { LikeButton } from "../common/LikeButton";
 import { useAuth } from "../../customHooks/use-auth";
 import { useRouter } from "../../customHooks/use-router";
 
-export default function Thumbnail({ key, review }) {
+export default function Thumbnail({ review }) {
   const auth = useAuth();
   const { push } = useRouter();
 
