@@ -35,7 +35,12 @@ export function Select({
   return (
     <div className="form-group">
       <label htmlFor={name}>{label}</label>
-      <select name={name} id={name} {...rest} className="form-control">
+      <select
+        name={name}
+        id={name}
+        {...rest}
+        className="form-control custom-select"
+      >
         <option value="" />
         {selectOptions &&
           selectOptions.map(option => (
