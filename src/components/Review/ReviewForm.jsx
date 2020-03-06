@@ -92,9 +92,10 @@ export default function ReviewForm() {
         type="text"
         name="description"
         label="Description"
+        as="textarea"
         minLength="5"
         maxLength="500"
-        placeholder="Enter a description"
+        placeholder="Enter a description..."
         onChange={onChange}
         required
       />
@@ -135,7 +136,7 @@ export default function ReviewForm() {
         text="Post"
         type="primary"
         loading={onReviewSubmitted.loading}
-        className="btn-block"
+        className="btn-block mb-4"
       />
     </Form>
   );

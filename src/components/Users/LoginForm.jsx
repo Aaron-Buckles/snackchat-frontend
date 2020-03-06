@@ -58,7 +58,7 @@ export default function LoginForm() {
         text="Login"
         type="primary"
         loading={onLogin.loading}
-        className="btn-block"
+        className="btn-block mb-4"
       />
     </Form>
   );

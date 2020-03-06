@@ -80,7 +80,7 @@ export default function SignupForm({ tags }) {
         text="Signup"
         type="primary"
         loading={onSignup.loading}
-        className="btn-block"
+        className="btn-block mb-4"
       />
     </Form>
   );
