@@ -10,6 +10,23 @@ async function getAllReviews() {
   return response.data.reviews;
 }
 
+async function getReviewsWithinRadius(
+  latitude,
+  longitude,
+  miles = 5,
+  limit = 20
+) {
+  const response = await api.get("/reviews/", {
+    params: {
+      lat: latitude,
+      long: longitude,
+      miles: miles,
+      limit: limit
+    }
+  });
+  return response.data.reviews;
+}
+
 async function getReviewById(id) {
   const response = await api.get(`/reviews/${id}`);
   return response.data.review;
@@ -48,6 +65,7 @@ async function unlikeReview(reviewId) {
 
 const reviewService = {
   getAllReviews,
+  getReviewsWithinRadius,
   getReviewById,
   postReview,
   updateReviewById,

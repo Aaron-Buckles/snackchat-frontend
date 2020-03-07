@@ -126,7 +126,7 @@ export default function ReviewForm() {
       <Select
         name="businessId"
         value={review.businessId}
-        selectOptions={businesses}
+        selectOptions={businesses.list}
         label="Business"
         onChange={onChange}
       />

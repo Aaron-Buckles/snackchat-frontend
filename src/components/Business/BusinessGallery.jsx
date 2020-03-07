@@ -11,11 +11,14 @@ export default function BusinessGallery({ businesses }) {
     1000: 1
   };
 
-  const businessesToDisplay = businesses.map(business => (
-    <BusinessThumbnail business={business}></BusinessThumbnail>
+  const businessesToDisplay = businesses.list.map(business => (
+    <BusinessThumbnail
+      key={business._id}
+      business={business}
+    ></BusinessThumbnail>
   ));
 
-  if (businesses.length === 0) return <Loader />;
+  if (businesses.list.length === 0) return <Loader />;
 
   return (
     <Masonry

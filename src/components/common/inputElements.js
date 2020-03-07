@@ -5,17 +5,28 @@ import Form from "react-bootstrap/Form";
 import { AwesomeButton } from "react-awesome-button";
 import { Loader } from "./Loader";
 
-export function ButtonWithLoading({ name, text, loading, ...options }) {
+export function ButtonWithLoading({
+  name,
+  text,
+  loading,
+  disabled,
+  ...options
+}) {
   return (
-    <AwesomeButton type="primary" name={name} {...options} disabled={loading}>
+    <AwesomeButton
+      type="primary"
+      name={name}
+      {...options}
+      disabled={loading || disabled}
+    >
       {(loading && <Loader light />) || text}
     </AwesomeButton>
   );
 }
 
-export function Input({ name, label, error, children, ...options }) {
+export function Input({ name, label, error, children, groupAs, ...options }) {
   return (
-    <Form.Group controlId={name}>
+    <Form.Group controlId={name} as={groupAs}>
       <Form.Label>{label}</Form.Label>
       <Form.Control name={name} {...options} />
       {children}

@@ -28,10 +28,8 @@ export default function BusinessThumbnail({ business }) {
         <StarRating name="starRating" rating={business.starRating} />
 
         <Card.Text>
-          <address>
-            {business.address} <br /> {business.city}, {business.state},{" "}
-            {business.postal_code}
-          </address>
+          {business.address} <br /> {business.city}, {business.state}{" "}
+          {business.postalCode}
           {business.tags.map(tag => (
             <Badge key={tag._id} pill variant="primary" className="mr-1">
               {tag.name}
