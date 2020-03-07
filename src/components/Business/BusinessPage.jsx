@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import BusinessGallery from "./BusinessGallery";
 import CreateBusinessModal from "./CreateBusinessModal";
 import Filter from "../common/Filter";
 
 // Interface
-import { Container, Row } from "react-bootstrap";
+import Container from "react-bootstrap/Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ButtonWithLoading } from "../common/inputElements";
 
@@ -31,16 +31,18 @@ export default function BusinessPage() {
       </h1>
 
       <hr />
-      <Container>
-        <Row>
-          <ButtonWithLoading
-            name="open-business-create-modal"
-            text="Create Business"
-            onPress={() => setShowingCreateModal(true)}
-            className="mr-4"
-          />
-          <Filter filters={filters} setFilters={setFilters} />
-        </Row>
+      <Container className="mb-3 d-flex horizontal-scroll">
+        <ButtonWithLoading
+          name="open-business-create-modal"
+          text="Create Business"
+          onPress={() => setShowingCreateModal(true)}
+          className="mr-4 my-1"
+        />
+        <Filter
+          filters={filters}
+          setFilters={setFilters}
+          className="mr-2 my-1"
+        />
       </Container>
       <hr />
 

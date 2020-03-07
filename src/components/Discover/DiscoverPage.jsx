@@ -3,11 +3,8 @@ import Gallery from "./Gallery";
 import FoodTags from "../common/FoodTags";
 import Filter from "../common/Filter";
 
-// Services
-import reviewService from "../../services/reviewService";
-
 // Interface
-import { Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ButtonWithLoading } from "../common/inputElements";
 
@@ -41,16 +38,18 @@ export default function DiscoverPage() {
         <FontAwesomeIcon icon="search" /> Discover
       </h1>
       <hr />
-      <Container>
-        <Row>
-          <ButtonWithLoading
-            name="write-review-button"
-            text="Write Review"
-            onPress={() => push("/review")}
-            className="mr-4"
-          />
-          <Filter filters={filters} setFilters={setFilters} />
-        </Row>
+      <Container className="mb-3 d-flex horizontal-scroll">
+        <ButtonWithLoading
+          name="write-review-button"
+          text="Write Review"
+          onPress={() => push("/review")}
+          className="mr-4 my-1"
+        />
+        <Filter
+          filters={filters}
+          setFilters={setFilters}
+          className="mr-2 my-1"
+        />
       </Container>
       <hr />
       <FoodTags onTagSelect={handleTagSelect} tags={tags} />

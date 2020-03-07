@@ -3,7 +3,7 @@ import React from "react";
 // Interface
 import { ButtonWithLoading } from "./inputElements";
 
-export default function BusinessFilter({ filters, setFilters }) {
+export default function BusinessFilter({ filters, setFilters, className }) {
   const toggleWithinRadius = () => {
     if (filters.mileValuesIndex >= filters.mileValues.length - 1) {
       setFilters({ ...filters, mileValuesIndex: 0 });
@@ -19,7 +19,7 @@ export default function BusinessFilter({ filters, setFilters }) {
         text={filters.showAll ? "Showing All" : "Showing Within: "}
         onPress={() => setFilters({ ...filters, showAll: !filters.showAll })}
         type="secondary"
-        className="mr-2"
+        className={className}
       />
 
       <ButtonWithLoading
@@ -28,6 +28,7 @@ export default function BusinessFilter({ filters, setFilters }) {
         onPress={() => toggleWithinRadius()}
         type="secondary"
         visible={!filters.showAll}
+        className={className}
       />
     </>
   );
