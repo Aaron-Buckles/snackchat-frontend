@@ -15,7 +15,7 @@ export default function Gallery({ selectedTags, reviews }) {
     .filter(
       review =>
         selectedTags.length === 0 ||
-        selectedTags.every(selectedTag =>
+        selectedTags.some(selectedTag =>
           review.tags.some(tag => tag._id === selectedTag._id)
         )
     )
