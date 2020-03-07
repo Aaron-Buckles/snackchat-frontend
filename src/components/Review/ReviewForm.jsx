@@ -125,7 +125,12 @@ export default function ReviewForm() {
       <Select
         name="businessId"
         value={review.businessId}
-        selectOptions={businesses.list}
+        selectOptions={businesses.list.map(business => {
+          return {
+            ...business,
+            name: `${business.name} at ${business.address} in ${business.city}`
+          };
+        })}
         label="Business"
         onChange={onChange}
       />
