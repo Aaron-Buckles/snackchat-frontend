@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import FoodTags from "../common/FoodTags";
-import Cookies from "js-cookie";
 
 // Services
 import reviewService from "../../services/reviewService";
@@ -20,12 +19,12 @@ import { useRouter } from "../../customHooks/use-router";
 export default function ReviewForm() {
   const businesses = useBusinesses();
   const tags = useTags();
-  const { push } = useRouter();
+  const { push, query } = useRouter();
 
   const [review, setReview] = useState({
     title: "",
     description: "",
-    businessId: Cookies.get("review_business_id") || ""
+    businessId: query.businessId || ""
   });
   const [starRating, setStarRating] = useState(1);
   const [selectedTags, setSelectedTags] = useState([]);

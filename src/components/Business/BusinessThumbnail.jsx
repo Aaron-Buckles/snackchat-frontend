@@ -15,10 +15,7 @@ export default function BusinessThumbnail({ business }) {
   const { push } = useRouter();
 
   const onWriteReview = useSubmit(e => {
-    Cookies.set("review_business_id", business._id, {
-      expires: 1 / 48
-    });
-    push("/review");
+    push(`/review?businessId=${business._id}`);
   });
 
   return (
