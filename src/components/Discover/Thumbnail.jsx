@@ -6,7 +6,7 @@ import reviewService from "../../services/reviewService";
 
 // Interface
 import Card from "react-bootstrap/Card";
-import Badge from "react-bootstrap/Badge";
+import TagPills from "../common/TagPills";
 import { toast } from "react-toastify";
 import { StarRating } from "../common/StarRating";
 import { LikeButton } from "../common/LikeButton";
@@ -65,18 +65,17 @@ export default function Thumbnail({ review }) {
       />
       <Card.Body>
         <Card.Title>{review.title}</Card.Title>
+        <p className="text-muted">
+          for {review.businessId.name} in {review.businessId.city}
+        </p>
         <StarRating name="starRating" rating={review.starRating} />
-        {review.tags.map(tag => (
-          <Badge key={tag._id} pill variant="primary" className="mr-1 mb-2">
-            {tag.name}
-          </Badge>
-        ))}
-
-        <hl />
-
+        <TagPills tags={review.tags} />
         <Card.Text className="border-top border-bottom p-2">
           {review.description}
         </Card.Text>
+        <span className="blockquote-footer">
+          {auth.user.name === review.author.name ? "You" : review.author.name}
+        </span>
         <div className="d-flex justify-content-end">
           <LikeButton
             onLike={onLike}

@@ -3,9 +3,9 @@ import Cookies from "js-cookie";
 
 // Interface
 import Card from "react-bootstrap/Card";
-import Badge from "react-bootstrap/Badge";
 import { ButtonWithLoading } from "../common/inputElements";
 import { StarRating } from "../common/StarRating";
+import TagPills from "../common/TagPills";
 
 // Hooks
 import { useRouter } from "../../customHooks/use-router";
@@ -26,15 +26,10 @@ export default function BusinessThumbnail({ business }) {
       <Card.Body>
         <Card.Title>{business.name}</Card.Title>
         <StarRating name="starRating" rating={business.starRating} />
-
-        <Card.Text>
+        <TagPills tags={business.tags} />
+        <Card.Text className="border-top border-bottom p-2">
           {business.address} <br /> {business.city}, {business.state}{" "}
           {business.postalCode}
-          {business.tags.map(tag => (
-            <Badge key={tag._id} pill variant="primary" className="mr-1">
-              {tag.name}
-            </Badge>
-          ))}
         </Card.Text>
       </Card.Body>
       <Card.Footer>
