@@ -5,13 +5,18 @@ import BusinessThumbnail from "./BusinessThumbnail";
 import Masonry from "react-masonry-css";
 import { Loader } from "../common/Loader";
 
-export default function BusinessGallery({ businesses }) {
+export default function BusinessGallery({ businesses, filters }) {
   const breakpointColumnsObj = {
     default: 2,
     1000: 1
   };
 
-  const businessesToDisplay = businesses.list.map(business => (
+  const businessesToDisplay = (filters.starRating == 0
+    ? businesses.list
+    : businesses.list.filter(business => {
+        return business.starRating === filters.starRating;
+      })
+  ).map(business => (
     <BusinessThumbnail
       key={business._id}
       business={business}

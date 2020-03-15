@@ -16,7 +16,8 @@ export default function BusinessPage() {
   const [filters, setFilters] = useState({
     showAll: true,
     mileValues: [1, 5, 10, 25, 50],
-    mileValuesIndex: 0
+    mileValuesIndex: 0,
+    starRating: 0
   });
 
   const [showingCreateModal, setShowingCreateModal] = useState(false);

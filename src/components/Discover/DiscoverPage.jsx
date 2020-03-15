@@ -18,7 +18,8 @@ export default function DiscoverPage() {
   const [filters, setFilters] = useState({
     showAll: false,
     mileValues: [1, 5, 10, 25, 50, 100, 500],
-    mileValuesIndex: 1
+    mileValuesIndex: 1,
+    starRating: 0
   });
 
   const [selectedTags, setSelectedTags] = useState([]);
@@ -54,7 +55,16 @@ export default function DiscoverPage() {
       <hr />
       <FoodTags onTagSelect={handleTagSelect} tags={tags} />
       <hr />
-      <Gallery selectedTags={selectedTags} reviews={reviews.list} />
+      <Gallery
+        selectedTags={selectedTags}
+        reviews={
+          filters.starRating === 0
+            ? reviews.list
+            : reviews.list.filter(review => {
+                return review.starRating === filters.starRating;
+              })
+        }
+      />
     </>
   );
 }

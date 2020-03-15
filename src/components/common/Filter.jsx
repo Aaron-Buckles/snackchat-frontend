@@ -12,11 +12,19 @@ export default function BusinessFilter({ filters, setFilters, className }) {
     }
   };
 
+  const toggleStarRating = () => {
+    if (filters.starRating >= 5) {
+      setFilters({ ...filters, starRating: 0 });
+    } else {
+      setFilters({ ...filters, starRating: filters.starRating + 1 });
+    }
+  };
+
   return (
     <>
       <ButtonWithLoading
         name="toggle-show-all-button"
-        text={filters.showAll ? "Showing All" : "Showing Within: "}
+        text={filters.showAll ? "Showing all" : "Showing within: "}
         onPress={() => setFilters({ ...filters, showAll: !filters.showAll })}
         type="secondary"
         className={className}
@@ -26,6 +34,19 @@ export default function BusinessFilter({ filters, setFilters, className }) {
         name="toggle-within-radius"
         text={`${filters.mileValues[filters.mileValuesIndex]} miles`}
         onPress={() => toggleWithinRadius()}
+        type="secondary"
+        visible={!filters.showAll}
+        className={className}
+      />
+
+      <ButtonWithLoading
+        name="toggle-star-rating"
+        text={
+          filters.starRating == 0
+            ? "with any rating"
+            : `with ${filters.starRating} star reviews`
+        }
+        onPress={() => toggleStarRating()}
         type="secondary"
         visible={!filters.showAll}
         className={className}
