@@ -27,7 +27,9 @@ import {
   faSignInAlt,
   faSignOutAlt,
   faUser,
-  faUserPlus
+  faUserPlus,
+  faGrinHearts,
+  faHeart
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -39,7 +41,9 @@ library.add(
   faSignInAlt,
   faSignOutAlt,
   faUser,
-  faUserPlus
+  faUserPlus,
+  faGrinHearts,
+  faHeart
 );
 
 export default function App() {

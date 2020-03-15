@@ -15,12 +15,28 @@ import { LikeButton } from "../common/LikeButton";
 import { useAuth } from "../../customHooks/use-auth";
 import { useRouter } from "../../customHooks/use-router";
 
+import userService from "../../services/userService";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 export default function Thumbnail({ review }) {
   const auth = useAuth();
   const { push } = useRouter();
 
   const [liked, setLiked] = useState(false);
+  const [preferred, setPreferred] = useState(false);
   const [likeCount, setLikeCount] = useState(review.likeCount);
+
+  useEffect(() => {
+    async function fetchData() {
+      const userDetails = await userService.getUserById(auth.user.userId);
+      var tagsIDs = review.tags.map(tag => tag._id)
+      setPreferred(userDetails.preferences.some(p => tagsIDs.indexOf(p._id) >= 0))
+    }
+    if (auth.user) {
+      fetchData();
+    }
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,7 +92,8 @@ export default function Thumbnail({ review }) {
         <span className="blockquote-footer">
           {auth.user.name === review.author.name ? "You" : review.author.name}
         </span>
-        <div className="d-flex justify-content-end">
+        <div className="d-flex justify-content-between align-items-center">
+          {preferred ? <FontAwesomeIcon size="2x" color="red" icon={["far", "heart"]} /> : <span />}
           <LikeButton
             onLike={onLike}
             onUnlike={onUnlike}

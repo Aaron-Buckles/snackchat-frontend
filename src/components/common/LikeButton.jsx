@@ -6,7 +6,7 @@ import { AwesomeButton } from "react-awesome-button";
 
 export function LikeButton({ onLike, onUnlike, liked, likeCount }) {
   return (
-    <>
+    <div>
       <span className="mx-2 my-auto">{likeCount}</span>
       {liked ? (
         <AwesomeButton type="primary" size="icon" onPress={onUnlike}>
@@ -17,6 +17,6 @@ export function LikeButton({ onLike, onUnlike, liked, likeCount }) {
           <FontAwesomeIcon icon={["far", "thumbs-up"]} />
         </AwesomeButton>
       )}
-    </>
+    </div>
   );
 }

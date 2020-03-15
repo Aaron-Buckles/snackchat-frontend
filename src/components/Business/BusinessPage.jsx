@@ -14,9 +14,9 @@ import { useBusinesses } from "../../customHooks/use-businesses";
 export default function BusinessPage() {
   // Filters
   const [filters, setFilters] = useState({
-    showAll: false,
-    mileValues: [1, 5, 10, 25, 50, 100, 500],
-    mileValuesIndex: 1
+    showAll: true,
+    mileValues: [1, 5, 10, 25, 50],
+    mileValuesIndex: 0
   });
 
   const [showingCreateModal, setShowingCreateModal] = useState(false);
