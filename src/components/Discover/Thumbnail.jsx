@@ -30,8 +30,10 @@ export default function Thumbnail({ review }) {
   useEffect(() => {
     async function fetchData() {
       const userDetails = await userService.getUserById(auth.user.userId);
-      var tagsIDs = review.tags.map(tag => tag._id)
-      setPreferred(userDetails.preferences.some(p => tagsIDs.indexOf(p._id) >= 0))
+      var tagsIDs = review.tags.map(tag => tag._id);
+      setPreferred(
+        userDetails.preferences.some(p => tagsIDs.indexOf(p._id) >= 0)
+      );
     }
     if (auth.user) {
       fetchData();
@@ -89,11 +91,13 @@ export default function Thumbnail({ review }) {
         <Card.Text className="border-top border-bottom p-2">
           {review.description}
         </Card.Text>
-        <span className="blockquote-footer">
-          {auth.user.name === review.author.name ? "You" : review.author.name}
-        </span>
+        <span className="blockquote-footer">{review.author.name}</span>
         <div className="d-flex justify-content-between align-items-center">
-          {preferred ? <FontAwesomeIcon size="2x" color="red" icon={["far", "heart"]} /> : <span />}
+          {preferred ? (
+            <FontAwesomeIcon size="2x" color="red" icon={["far", "heart"]} />
+          ) : (
+            <span />
+          )}
           <LikeButton
             onLike={onLike}
             onUnlike={onUnlike}
