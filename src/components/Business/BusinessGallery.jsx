@@ -11,7 +11,7 @@ export default function BusinessGallery({ businesses, filters }) {
     1000: 1
   };
 
-  const businessesToDisplay = (filters.starRating == 0
+  const businessesToDisplay = (filters.showAll || filters.starRating == 0
     ? businesses.list
     : businesses.list.filter(business => {
         return business.starRating === filters.starRating;

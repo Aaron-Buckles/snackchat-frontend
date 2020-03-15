@@ -58,7 +58,7 @@ export default function DiscoverPage() {
       <Gallery
         selectedTags={selectedTags}
         reviews={
-          filters.starRating === 0
+          filters.showAll || filters.starRating === 0
             ? reviews.list
             : reviews.list.filter(review => {
                 return review.starRating === filters.starRating;
