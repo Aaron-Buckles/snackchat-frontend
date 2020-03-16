@@ -3,6 +3,7 @@ import FoodTags from "../common/FoodTags";
 
 // Services
 import reviewService from "../../services/reviewService";
+import awsService from "./../../services/awsService";
 
 // Interface
 import Form from "react-bootstrap/Form";
@@ -24,11 +25,11 @@ export default function ReviewForm() {
   const [review, setReview] = useState({
     title: "",
     description: "",
-    businessId: query.businessId || ""
+    businessId: query.businessId || "",
+    starRating: 1,
+    reviewImageURL: "",
+    tags: []
   });
-  const [starRating, setStarRating] = useState(1);
-  const [selectedTags, setSelectedTags] = useState([]);
-  const [reviewImage, setReviewImage] = useState("");
   const [filename, setFilename] = useState("Choose file...");
 
   const onChange = e => {
@@ -37,35 +38,28 @@ export default function ReviewForm() {
   };
 
   const onStarRatingChange = (newStarRating, name) => {
-    setStarRating(newStarRating);
+    setReview({ ...review, starRating: newStarRating });
   };
 
-  const onTagSelect = (value, e) => {
-    setSelectedTags(value);
+  const onTagSelect = (tags, e) => {
+    setReview({ ...review, tags });
   };
 
   const onFileChange = e => {
     const file = e.target.files[0];
-    setReviewImage(file);
+    if (file == null) {
+      return;
+    }
+    awsService.getSignedRequest(file, url =>
+      setReview({ ...review, reviewImageURL: url })
+    );
     setFilename(file.name);
   };
 
   const onReviewSubmitted = useSubmit(async e => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("title", review.title);
-    formData.append("description", review.description);
-    formData.append("starRating", starRating);
-    formData.append("businessId", review.businessId);
-    formData.append("reviewImage", reviewImage);
-
-    const tagIds = selectedTags.map(tag => tag._id);
-    for (let i = 0; i < tagIds.length; i++) {
-      formData.append(`tags[${i}]`, tagIds[i]);
-    }
-
     try {
-      await reviewService.postReview(formData);
+      await reviewService.postReview(review);
       push("/");
     } catch (err) {
       toast.error(err.response.data.err);
@@ -102,7 +96,7 @@ export default function ReviewForm() {
       <StarRating
         name="starRating"
         label="Rating"
-        rating={starRating}
+        rating={review.starRating}
         changeRating={onStarRatingChange}
       />
 

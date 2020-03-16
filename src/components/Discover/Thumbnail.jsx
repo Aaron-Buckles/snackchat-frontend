@@ -77,10 +77,7 @@ export default function Thumbnail({ review }) {
 
   return (
     <Card className="mx-auto shadow-lg">
-      <Card.Img
-        variant="top"
-        src={`${process.env.REACT_APP_API_URL}/${review.reviewImage}`}
-      />
+      <Card.Img variant="top" src={review.reviewImageURL} />
       <Card.Body>
         <Card.Title>{review.title}</Card.Title>
         <p className="text-muted">
